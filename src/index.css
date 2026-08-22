@@ -67,6 +67,16 @@ html.dark .text-slate-500 {
   color: #94A3B8 !important;
 }
 
+html.dark .bg-\[\#EAF3FF\] {
+  background-color: #172554 !important;
+  color: #93C5FD !important;
+  border-color: #1E40AF !important;
+}
+
+html.dark .text-\[\#0057B8\] {
+  color: #60A5FA !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
