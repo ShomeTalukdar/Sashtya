@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  ShieldCheck, 
-  QrCode, 
-  Lock, 
-  CheckCircle2, 
-  AlertCircle,
-  FileText
-} from 'lucide-react';
+import { X, ShieldCheck, QrCode, Lock, CheckCircle2 } from 'lucide-react';
 import { EmergencyCard } from '../../types';
 import { EmergencyService } from '../../services/emergencyService';
 

@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import { 
-  FileText, 
-  Upload, 
-  Search, 
-  Filter, 
-  Sparkles, 
-  Download, 
-  Eye, 
-  Trash2, 
-  Plus, 
-  Tag, 
-  Calendar, 
-  User, 
+import {
+  FileText,
+  Upload,
+  Search,
+  Sparkles,
+  Download,
+  Eye,
+  Trash2,
+  User,
   X,
-  CheckCircle2
+  CheckCircle2,
+  FileCheck
 } from 'lucide-react';
 import { HealthRecord, RecordCategory } from '../../types';
 import { initialHealthRecords } from '../../services/mockData';
@@ -56,25 +53,31 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
     const file = e.target.files?.[0];
     if (file) {
       setIsUploading(true);
+      
+      // Generate instant preview Object URL for desktop photo uploads
+      const fileUrl = file.type.startsWith('image/') 
+        ? URL.createObjectURL(file) 
+        : 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format&fit=crop&q=60';
+
       setTimeout(() => {
         const newRecord: HealthRecord = {
           id: `rec_${Date.now()}`,
           title: file.name.replace(/\.[^/.]+$/, ""),
-          category: (selectedCategory === 'All' ? 'Lab Reports' : selectedCategory) as RecordCategory,
-          doctorName: 'Dr. S. Patnaik',
-          hospitalName: 'Apollo Diagnostics',
+          category: (selectedCategory === 'All' ? 'Prescriptions' : selectedCategory) as RecordCategory,
+          doctorName: 'Uploaded Document',
+          hospitalName: 'Patient Digital Vault',
           dateUploaded: new Date().toISOString().split('T')[0],
-          fileUrl: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format&fit=crop&q=60',
+          fileUrl: fileUrl,
           fileType: file.type.includes('pdf') ? 'pdf' : 'image',
-          fileSizeMb: parseFloat((file.size / (1024 * 1024)).toFixed(1)) || 1.2,
-          tags: ['Uploaded Document', 'User Medical File'],
-          notes: 'Uploaded by patient'
+          fileSizeMb: parseFloat((file.size / (1024 * 1024)).toFixed(2)) || 0.8,
+          tags: ['Desktop Photo', 'User Document'],
+          notes: `Direct upload from Desktop (${file.name})`
         };
         setRecords([newRecord, ...records]);
         setIsUploading(false);
-        setUploadSuccess(`Successfully uploaded "${file.name}"!`);
-        setTimeout(() => setUploadSuccess(''), 3500);
-      }, 1000);
+        setUploadSuccess(`Successfully uploaded "${file.name}" from Desktop!`);
+        setTimeout(() => setUploadSuccess(''), 4000);
+      }, 600);
     }
   };
 
@@ -94,32 +97,32 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
             <span>Digital Health Records</span>
           </h1>
           <p className="text-sm font-medium text-slate-500 mt-1">
-            Categorized prescriptions, lab reports, discharge summaries, & bills.
+            Upload medical photos & files directly from Desktop or scan prescriptions with AI OCR.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Prescription Scan + OCR OCR Button */}
+          {/* Prescription Scan + OCR Button */}
           <button
             onClick={onOpenScanModal}
             className="bg-gradient-to-r from-[#0057B8] to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95"
           >
             <Sparkles className="w-4 h-4 text-amber-300 fill-amber-300" />
-            <span>Scan Prescription OCR</span>
+            <span>Scan Desktop Prescription OCR</span>
           </button>
 
-          {/* Upload File Input */}
+          {/* Upload Desktop File Input */}
           <label className="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md cursor-pointer transition-all active:scale-95">
             <Upload className="w-4 h-4" />
-            <span>{isUploading ? 'Uploading...' : 'Upload File'}</span>
+            <span>{isUploading ? 'Uploading Desktop File...' : 'Upload Desktop Photo/File'}</span>
             <input type="file" onChange={handleFileUpload} className="hidden" accept="image/*,.pdf" />
           </label>
         </div>
       </div>
 
       {uploadSuccess && (
-        <div className="p-3 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-3.5 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-2xl text-xs font-bold flex items-center gap-2 animate-in fade-in duration-200 shadow-xs">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
           <span>{uploadSuccess}</span>
         </div>
       )}
@@ -134,7 +137,7 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search records by title, doctor name, or tag (e.g. 'Blood test', 'Cardiology')..."
+            placeholder="Search records by title, doctor name, or tag (e.g. 'Blood test', 'Prescription')..."
             className="w-full bg-slate-50 border border-slate-300 rounded-2xl pl-12 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-[#0057B8] focus:bg-white transition-all font-medium"
           />
         </div>
@@ -172,7 +175,13 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
                 <span className="text-xs text-slate-400 font-semibold">{rec.dateUploaded}</span>
               </div>
 
-              <h3 className="font-extrabold text-slate-900 text-base mt-2.5">{rec.title}</h3>
+              <h3 className="font-extrabold text-slate-900 text-base mt-2.5 flex items-center gap-2">
+                <span>{rec.title}</span>
+                {rec.tags.includes('Desktop Photo') && (
+                  <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Desktop Upload</span>
+                )}
+              </h3>
+
               {rec.doctorName && (
                 <p className="text-xs text-slate-600 font-semibold mt-1 flex items-center gap-1">
                   <User className="w-3.5 h-3.5 text-slate-400" />
@@ -227,7 +236,7 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
       {selectedRecord && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
                 <span className="text-xs font-bold text-[#0057B8] uppercase">{selectedRecord.category}</span>
                 <h3 className="text-xl font-extrabold text-slate-900">{selectedRecord.title}</h3>
@@ -237,8 +246,8 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
               </button>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 max-h-96 flex items-center justify-center">
-              <img src={selectedRecord.fileUrl} alt={selectedRecord.title} className="w-full h-full object-cover" />
+            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-96 flex items-center justify-center relative">
+              <img src={selectedRecord.fileUrl} alt={selectedRecord.title} className="max-h-96 w-full object-contain" />
             </div>
 
             <div className="flex items-center justify-between text-xs text-slate-600 font-medium pt-2 border-t border-slate-100">
@@ -247,10 +256,10 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
                 href={selectedRecord.fileUrl} 
                 target="_blank" 
                 rel="noreferrer"
-                className="px-4 py-2 rounded-xl bg-[#0057B8] text-white font-bold flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-[#0057B8] text-white font-bold flex items-center gap-1.5 shadow-md"
               >
                 <Download className="w-4 h-4" />
-                <span>Download Full File</span>
+                <span>View Full Resolution</span>
               </a>
             </div>
           </div>

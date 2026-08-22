@@ -1,15 +1,12 @@
 import React from 'react';
-import { 
-  Heart, 
-  AlertTriangle, 
-  Globe, 
-  Zap, 
-  Wifi, 
-  WifiOff, 
-  RefreshCw, 
-  User, 
-  Bot, 
-  Eye,
+import {
+  Heart,
+  AlertTriangle,
+  Globe,
+  Wifi,
+  WifiOff,
+  RefreshCw,
+  Bot,
   Sparkles,
   Moon,
   Sun
@@ -61,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#0057B8]">SASHTYA</span>
+              <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-[#0057B8]">SWASTYA</span>
               <span className="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-[#EAF3FF] text-[#0057B8] hidden sm:inline-block">
                 PATIENT & FAMILY
               </span>

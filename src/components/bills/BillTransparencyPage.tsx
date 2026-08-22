@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Receipt, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Upload, 
-  HelpCircle, 
-  Calculator, 
-  ShieldAlert,
-  FileSearch
-} from 'lucide-react';
+import { Receipt, AlertTriangle, CheckCircle2, HelpCircle, Calculator } from 'lucide-react';
 import { MedicalBill } from '../../types';
 import { BillService } from '../../services/billService';
 
@@ -48,7 +39,7 @@ export const BillTransparencyPage: React.FC = () => {
       <div className="bg-amber-50 border border-amber-200 p-4 rounded-3xl text-xs font-semibold text-amber-900 flex items-start gap-3">
         <HelpCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
         <div>
-          <strong>Tone & Language Principle (Section 23):</strong> SASHTYA uses respectful verification language (e.g. <em>"This charge may require verification"</em>) rather than accusing healthcare providers.
+          <strong>Tone & Language Principle (Section 23):</strong> SWASTYA uses respectful verification language (e.g. <em>"This charge may require verification"</em>) rather than accusing healthcare providers.
         </div>
       </div>
 

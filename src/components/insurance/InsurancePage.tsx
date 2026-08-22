@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  ShieldCheck, 
-  FileText, 
-  Plus, 
-  CheckCircle2, 
-  Clock, 
-  AlertCircle, 
-  ShieldAlert, 
-  TrendingUp,
-  ChevronRight,
-  X
-} from 'lucide-react';
-import { InsurancePolicy, InsuranceClaim } from '../../types';
+import { ShieldCheck, Plus, X } from 'lucide-react';
+import { InsurancePolicy } from '../../types';
 import { InsuranceService } from '../../services/insuranceService';
 
 export const InsurancePage: React.FC = () => {

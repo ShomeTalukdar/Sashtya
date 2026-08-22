@@ -125,7 +125,7 @@ export const SimpleModeDashboard: React.FC<SimpleModeDashboardProps> = ({
         className="w-full bg-[#0057B8] hover:bg-blue-800 text-white p-6 sm:p-8 rounded-3xl shadow-lg border-4 border-blue-300 flex flex-col items-center justify-center gap-3 transition-all active:scale-95 group"
       >
         <Mic className="w-14 h-14 text-white group-hover:scale-110 transition-transform" />
-        <span className="text-2xl sm:text-3xl font-extrabold">🎤 TALK TO SASHTYA</span>
+        <span className="text-2xl sm:text-3xl font-extrabold">🎤 TALK TO SWASTYA</span>
         <span className="text-base font-bold text-blue-100">Speak in Hindi, Bengali, Odia, English</span>
       </button>
 

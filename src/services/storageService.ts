@@ -1,16 +1,17 @@
 import { SyncStatus } from '../types';
 
 const STORAGE_KEYS = {
-  PATIENT: 'sashtya_patient_profile',
-  EMERGENCY_CARD: 'sashtya_emergency_card',
-  RECORDS: 'sashtya_records',
-  MEDICATIONS: 'sashtya_medications',
-  APPOINTMENTS: 'sashtya_appointments',
-  FAMILY: 'sashtya_family',
-  INSURANCE: 'sashtya_insurance',
-  BILL: 'sashtya_bill',
-  SYNC_QUEUE: 'sashtya_sync_queue',
-  SYNC_STATUS: 'sashtya_sync_status'
+  PATIENT: 'swastya_patient_profile',
+  EMERGENCY_CARD: 'swastya_emergency_card',
+  RECORDS: 'swastya_records',
+  MEDICATIONS: 'swastya_medications',
+  APPOINTMENTS: 'swastya_appointments',
+  FAMILY: 'swastya_family',
+  FAMILY_HISTORY: 'swastya_family_history',
+  INSURANCE: 'swastya_insurance',
+  BILL: 'swastya_bill',
+  SYNC_QUEUE: 'swastya_sync_queue',
+  SYNC_STATUS: 'swastya_sync_status'
 };
 
 export class StorageService {

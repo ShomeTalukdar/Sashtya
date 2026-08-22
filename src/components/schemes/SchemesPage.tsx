@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Award, 
-  Search, 
-  CheckCircle2, 
-  ExternalLink, 
-  Pill, 
-  FileText, 
-  ShieldCheck,
-  ChevronRight
-} from 'lucide-react';
+import { Award, CheckCircle2, ExternalLink, ShieldCheck, ChevronRight } from 'lucide-react';
 import { HealthcareScheme } from '../../types';
 import { SchemeService } from '../../services/schemeService';
 

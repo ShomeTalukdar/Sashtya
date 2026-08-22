@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Hospital, 
-  MapPin, 
-  PhoneCall, 
-  Navigation, 
-  Search, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Clock, 
-  Bed
-} from 'lucide-react';
+import { Hospital, MapPin, PhoneCall, Navigation, Search, ShieldCheck, Bed } from 'lucide-react';
 import { NearbyHospital } from '../../types';
 import { HospitalService } from '../../services/hospitalService';
 import { EmergencyService } from '../../services/emergencyService';

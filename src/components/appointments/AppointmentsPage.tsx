@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Calendar, 
-  Clock, 
-  UserCheck, 
-  MapPin, 
-  Plus, 
-  CheckCircle2, 
-  AlertCircle, 
-  CalendarCheck, 
-  ArrowRight,
-  Stethoscope,
-  X
-} from 'lucide-react';
+import { Calendar, Clock, Plus, CheckCircle2, CalendarCheck, X } from 'lucide-react';
 import { Appointment } from '../../types';
 import { AppointmentService } from '../../services/appointmentService';
 

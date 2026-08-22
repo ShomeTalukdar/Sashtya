@@ -1,5 +1,5 @@
 {
-  "appName": "SASHTYA",
+  "appName": "स्वास्थ्य (SWASTYA)",
   "tagline": "आपका स्वास्थ्य। आपका परिवार। एक जगह।",
   "emergencyBtn": "🚨 आपातकाल (EMERGENCY)",
   "emergencyDesc": "तुरंत सहायता प्राप्त करें",
@@ -16,8 +16,8 @@
   "bills": "मेडिकल बिल",
   "hospitals": "नजदीकी अस्पताल",
   "doctors": "डॉक्टर और विशेषज्ञ",
-  "assistant": "SASHTYA सहायक",
-  "talkToAssistant": "SASHTYA से बात करें",
+  "assistant": "SWASTYA सहायक",
+  "talkToAssistant": "SWASTYA से बात करें",
   "schemes": "सरकारी स्वास्थ्य योजनाएं",
   "reviews": "समीक्षा और रेटिंग",
   "specialCare": "विशेष देखभाल",

@@ -1,12 +1,5 @@
 import React from 'react';
-import { 
-  Home, 
-  FileText, 
-  Pill, 
-  Bot, 
-  Grid, 
-  AlertTriangle 
-} from 'lucide-react';
+import { Home, FileText, Pill, Bot, AlertTriangle } from 'lucide-react';
 
 interface MobileNavProps {
   activeTab: string;

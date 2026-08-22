@@ -1,14 +1,13 @@
 import React from 'react';
-import { 
-  Pill, 
-  Calendar, 
-  FileText, 
-  Users, 
-  ShieldCheck, 
-  Receipt, 
-  Hospital, 
-  Stethoscope, 
-  Bot, 
+import {
+  Pill,
+  Calendar,
+  FileText,
+  Users,
+  ShieldCheck,
+  Receipt,
+  Hospital,
+  Bot,
   AlertTriangle,
   ArrowRight,
   CheckCircle2,
@@ -17,9 +16,7 @@ import {
   Sparkles,
   Heart,
   Baby,
-  Accessibility,
-  Award,
-  Star
+  Award
 } from 'lucide-react';
 import { PatientProfile, MedicationSchedule, Appointment } from '../../types';
 
@@ -322,7 +319,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
         </div>
       </div>
 
-      {/* SASHTYA Assistant Banner */}
+      {/* SWASTYA Assistant Banner */}
       <div 
         onClick={onOpenAssistant}
         className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 p-6 rounded-3xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 cursor-pointer hover:border-[#0057B8] transition-all"
@@ -334,7 +331,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
           <div>
             <h4 className="font-extrabold text-slate-900 text-lg">Have a healthcare question?</h4>
             <p className="text-xs sm:text-sm text-slate-600 font-medium">
-              Talk or type with SASHTYA Multilingual Assistant in English, Hindi, Bengali, or Odia.
+              Talk or type with SWASTYA Multilingual Assistant in English, Hindi, Bengali, or Odia.
             </p>
           </div>
         </div>

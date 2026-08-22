@@ -48,7 +48,7 @@ export const initialEmergencyCard: EmergencyCard = {
     phone: '+91 98765 43211'
   },
   criticalNotes: 'Patient has Type 2 Diabetes & Hypertension. Requires insulin monitoring in trauma situations.',
-  qrCodeUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=SASHTYA_EMERGENCY_PROFILE_PAT101_BLOOD_O_POS_ALLERGY_PENICILLIN',
+  qrCodeUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=SWASTYA_EMERGENCY_PROFILE_PAT101_BLOOD_O_POS_ALLERGY_PENICILLIN',
   updatedAt: '2026-08-20'
 };
 

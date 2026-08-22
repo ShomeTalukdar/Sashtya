@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Pill, 
-  Plus, 
-  CheckCircle2, 
-  Clock, 
-  XCircle, 
-  Sparkles, 
-  AlertCircle, 
-  History, 
-  Calendar,
-  BellRing
-} from 'lucide-react';
+import { Pill, Plus, CheckCircle2, Clock, Sparkles, AlertCircle, History } from 'lucide-react';
 import { MedicationSchedule } from '../../types';
 import { MedicationService } from '../../services/medicationService';
 
@@ -100,7 +89,7 @@ export const MedicinesPage: React.FC<MedicinesPageProps> = ({
           <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs font-semibold text-amber-900 flex items-start gap-2.5">
             <AlertCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
             <div>
-              <strong>Safety Guardrail:</strong> SASHTYA organizes schedules based on your confirmed doctor prescriptions. It does not alter prescribed doses or recommend unverified medicines.
+              <strong>Safety Guardrail:</strong> SWASTYA organizes schedules based on your confirmed doctor prescriptions. It does not alter prescribed doses or recommend unverified medicines.
             </div>
           </div>
 

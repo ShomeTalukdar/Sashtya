@@ -31,16 +31,16 @@ export const App: React.FC = () => {
   const [isSimpleMode, setIsSimpleMode] = useState<boolean>(false);
   const [isHighContrast, setIsHighContrast] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    return localStorage.getItem('sashtya_dark_mode') === 'true';
+    return localStorage.getItem('swastya_dark_mode') === 'true';
   });
 
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('sashtya_dark_mode', 'true');
+      localStorage.setItem('swastya_dark_mode', 'true');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('sashtya_dark_mode', 'false');
+      localStorage.setItem('swastya_dark_mode', 'false');
     }
   }, [isDarkMode]);
 

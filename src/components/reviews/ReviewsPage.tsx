@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Star, 
-  ThumbsUp, 
-  MessageSquare, 
-  Plus, 
-  CheckCircle2, 
-  Hospital, 
-  UserCheck,
-  X
-} from 'lucide-react';
+import { Star, ThumbsUp, Plus, X } from 'lucide-react';
 import { DoctorReview } from '../../types';
 import { initialReviews } from '../../services/mockData';
 

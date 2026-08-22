@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Baby, 
-  Accessibility, 
-  Heart, 
-  Calendar, 
-  CheckCircle2, 
-  PhoneCall, 
-  Sparkles,
-  Volume2
-} from 'lucide-react';
+import { Baby, Accessibility, Heart, PhoneCall } from 'lucide-react';
 import { EmergencyService } from '../../services/emergencyService';
 
 export const SpecialCarePage: React.FC = () => {
@@ -141,7 +132,7 @@ export const SpecialCarePage: React.FC = () => {
               <span>Accessibility Assistance & UDID Card Support</span>
             </h3>
             <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
-              SASHTYA includes screen-reader optimizations, voice-guided navigation, ultra-high contrast modes, and direct links to the Unique Disability ID (UDID) portal.
+              SWASTYA includes screen-reader optimizations, voice-guided navigation, ultra-high contrast modes, and direct links to the Unique Disability ID (UDID) portal.
             </p>
           </div>
 
