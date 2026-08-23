@@ -8,7 +8,6 @@ export const AppointmentsPage: React.FC = () => {
   const [isBookModalOpen, setIsBookModalOpen] = useState(false);
   const [syncStatusMsg, setSyncStatusMsg] = useState('');
 
-  // Form states for booking
   const [doctorName, setDoctorName] = useState('Dr. Ananya Sen');
   const [specialty, setSpecialty] = useState('Cardiologist');
   const [hospitalClinic, setHospitalClinic] = useState('SCB Medical College OP Clinic');
@@ -34,111 +33,112 @@ export const AppointmentsPage: React.FC = () => {
   const handleSyncCalendar = (id: string) => {
     AppointmentService.syncToGoogleCalendar(id);
     setAppointments(AppointmentService.getAppointments());
-    setSyncStatusMsg('Synced appointment to Google Calendar!');
+    setSyncStatusMsg('Synced appointment to Google Calendar');
     setTimeout(() => setSyncStatusMsg(''), 3000);
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <Calendar className="w-8 h-8 text-[#0057B8]" />
-            <span>Doctor Appointments & Queue</span>
+          <span className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+            Clinic Visits & OPD
+          </span>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-0.5">
+            Doctor Appointments
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
-            Book visits, track real-time queue position, and sync calendar reminders.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Manage scheduled consultations, OPD queue tokens, and follow-up plans.
           </p>
         </div>
 
         <button
           onClick={() => setIsBookModalOpen(true)}
-          className="bg-[#0057B8] hover:bg-blue-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95 shrink-0"
+          className="bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5" />
           <span>Book Appointment</span>
         </button>
       </div>
 
       {syncStatusMsg && (
-        <div className="p-3 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2">
+        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-300 rounded-lg text-xs font-medium flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{syncStatusMsg}</span>
         </div>
       )}
 
-      {/* LIVE QUEUE MANAGEMENT WIDGET (SECTION 17) */}
+      {/* Live Queue Box */}
       {appointments.length > 0 && appointments[0].queuePosition && (
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 p-6 rounded-3xl shadow-sm space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-amber-500 text-white font-black text-xl">
-                #{appointments[0].queuePosition}
-              </div>
-              <div>
-                <span className="text-[11px] font-extrabold uppercase text-amber-800">
-                  LIVE OPD QUEUE STATUS ({appointments[0].doctorName})
-                </span>
-                <h3 className="font-extrabold text-slate-900 text-lg">Your turn is approaching!</h3>
-              </div>
+        <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold flex items-center justify-center text-sm shrink-0">
+              #{appointments[0].queuePosition}
             </div>
+            <div>
+              <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-wide">
+                Live OPD Queue ({appointments[0].doctorName})
+              </span>
+              <h2 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mt-0.5">
+                Token #{appointments[0].queuePosition} • Turn Approaching
+              </h2>
+            </div>
+          </div>
 
-            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-amber-200 shadow-2xs text-xs font-extrabold">
-              <div>
-                <span className="block text-slate-400 font-medium">Currently Serving</span>
-                <span className="text-amber-900 font-black">#{appointments[0].currentlyServing}</span>
-              </div>
-              <div className="h-6 w-px bg-slate-200" />
-              <div>
-                <span className="block text-slate-400 font-medium">Est. Wait</span>
-                <span className="text-[#0057B8] font-black">~{appointments[0].estimatedWaitMinutes} mins</span>
-              </div>
+          <div className="flex items-center gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-300">
+            <div>
+              <span className="block text-[10px] text-zinc-400 uppercase">Serving</span>
+              <span>#{appointments[0].currentlyServing}</span>
+            </div>
+            <div className="h-4 w-px bg-zinc-200 dark:bg-zinc-800" />
+            <div>
+              <span className="block text-[10px] text-zinc-400 uppercase">Est. Wait</span>
+              <span>~{appointments[0].estimatedWaitMinutes} mins</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* APPOINTMENTS LIST */}
-      <div className="space-y-4">
-        <h2 className="text-base font-extrabold text-slate-900 uppercase tracking-wider">
-          Upcoming Appointments
+      {/* Appointments List */}
+      <div className="space-y-3">
+        <h2 className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+          Upcoming Schedule
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {appointments.map((app) => (
             <div 
               key={app.id}
-              className="bg-white p-5 rounded-3xl border border-slate-200 shadow-card hover:shadow-cardHover transition-all space-y-4 flex flex-col justify-between"
+              className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4 flex flex-col justify-between hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
             >
               <div>
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-black uppercase">
+                    <span className="text-[11px] font-medium text-zinc-400 uppercase">
                       {app.specialty}
                     </span>
-                    <h3 className="font-extrabold text-slate-900 text-lg mt-1">{app.doctorName}</h3>
-                    <p className="text-xs text-slate-600 font-medium">{app.hospitalClinic}</p>
+                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mt-0.5">{app.doctorName}</h3>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{app.hospitalClinic}</p>
                   </div>
 
                   <div className="text-right">
-                    <span className="block text-xs font-black text-[#0057B8]">{app.appointmentDate}</span>
-                    <span className="text-xs text-slate-500 font-bold">{app.appointmentTime}</span>
+                    <span className="block text-xs font-medium text-zinc-900 dark:text-zinc-100">{app.appointmentDate}</span>
+                    <span className="text-xs text-zinc-400">{app.appointmentTime}</span>
                   </div>
                 </div>
 
-                <div className="mt-3 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-xs font-medium text-slate-700">
-                  <strong>Purpose:</strong> {app.purpose}
+                <div className="mt-3 bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-lg text-xs text-zinc-600 dark:text-zinc-300">
+                  <strong className="text-zinc-800 dark:text-zinc-200">Purpose:</strong> {app.purpose}
                 </div>
 
-                {/* Follow-up care plan checklist (Section 18) */}
                 {app.followUpTasks && app.followUpTasks.length > 0 && (
-                  <div className="mt-3 p-3 rounded-2xl bg-blue-50 border border-blue-200 text-xs space-y-1">
-                    <strong className="text-[#0057B8] font-extrabold block">CARE PLAN & PRE-VISIT TASKS:</strong>
+                  <div className="mt-3 p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
+                    <span className="text-[11px] font-medium text-zinc-400 uppercase block">Pre-Visit Tasks:</span>
                     {app.followUpTasks.map((task, i) => (
-                      <div key={i} className="flex items-center gap-1.5 text-slate-700 font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <div key={i} className="flex items-center gap-1.5 text-zinc-600 dark:text-zinc-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-zinc-400" />
                         <span>{task}</span>
                       </div>
                     ))}
@@ -146,18 +146,18 @@ export const AppointmentsPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
                 <button
                   onClick={() => handleSyncCalendar(app.id)}
                   disabled={app.syncedToGoogleCalendar}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition-colors ${
+                  className={`px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-colors ${
                     app.syncedToGoogleCalendar
-                      ? 'bg-slate-100 text-slate-500 cursor-default'
-                      : 'bg-[#EAF3FF] hover:bg-blue-100 text-[#0057B8]'
+                      ? 'text-zinc-400 cursor-default'
+                      : 'border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
                   }`}
                 >
-                  <CalendarCheck className="w-4 h-4" />
-                  <span>{app.syncedToGoogleCalendar ? 'Synced to Calendar' : 'Sync Google Calendar'}</span>
+                  <CalendarCheck className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>{app.syncedToGoogleCalendar ? 'Synced to Calendar' : 'Sync Calendar'}</span>
                 </button>
               </div>
             </div>
@@ -165,98 +165,98 @@ export const AppointmentsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* BOOK APPOINTMENT MODAL */}
+      {/* Book Appointment Modal */}
       {isBookModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <form onSubmit={handleBookAppointment} className="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-xl text-slate-900">Book Doctor Appointment</h3>
-              <button type="button" onClick={() => setIsBookModalOpen(false)} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500">
-                <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <form onSubmit={handleBookAppointment} className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl border border-zinc-200 dark:border-zinc-800">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Book Doctor Appointment</h3>
+              <button type="button" onClick={() => setIsBookModalOpen(false)} className="text-zinc-400 hover:text-zinc-600">
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Doctor Name</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Doctor Name</label>
                 <input
                   type="text"
                   value={doctorName}
                   onChange={(e) => setDoctorName(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Specialty</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Specialty</label>
                 <input
                   type="text"
                   value={specialty}
                   onChange={(e) => setSpecialty(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Hospital / Clinic</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Hospital / Clinic</label>
                 <input
                   type="text"
                   value={hospitalClinic}
                   onChange={(e) => setHospitalClinic(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Date</label>
+                  <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Date</label>
                   <input
                     type="date"
                     value={appointmentDate}
                     onChange={(e) => setAppointmentDate(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                    className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Time</label>
+                  <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Time</label>
                   <input
                     type="text"
                     value={appointmentTime}
                     onChange={(e) => setAppointmentTime(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                    className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Visit Purpose</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Purpose</label>
                 <textarea
                   value={purpose}
                   onChange={(e) => setPurpose(e.target.value)}
                   rows={2}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <button
                 type="button"
                 onClick={() => setIsBookModalOpen(false)}
-                className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs text-slate-700"
+                className="px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-[#0057B8] hover:bg-blue-800 text-white font-extrabold text-xs shadow-md"
+                className="px-3.5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium"
               >
-                Confirm Appointment
+                Confirm
               </button>
             </div>
           </form>
@@ -266,3 +266,5 @@ export const AppointmentsPage: React.FC = () => {
     </div>
   );
 };
+
+export default AppointmentsPage;

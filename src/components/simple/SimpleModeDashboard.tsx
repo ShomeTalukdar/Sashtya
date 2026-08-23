@@ -6,7 +6,8 @@ import {
   Hospital, 
   Mic, 
   AlertTriangle,
-  Volume2
+  Volume2,
+  ShieldCheck
 } from 'lucide-react';
 import { VoiceService } from '../../services/voiceService';
 
@@ -27,108 +28,136 @@ export const SimpleModeDashboard: React.FC<SimpleModeDashboardProps> = ({
   };
 
   return (
-    <div className="space-y-6 pb-12 max-w-4xl mx-auto">
+    <div className="space-y-6 max-w-xl mx-auto">
       
       {/* Voice Instruction Header */}
-      <div className="bg-amber-50 border-2 border-amber-300 p-5 rounded-3xl text-center space-y-2">
-        <div className="flex items-center justify-center gap-2 text-amber-900 font-extrabold text-lg sm:text-xl">
-          <Volume2 className="w-6 h-6 text-amber-700 animate-pulse" />
-          <span>SIMPLE MODE — BIG BUTTONS</span>
+      <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-4 rounded-xl text-center space-y-1">
+        <div className="flex items-center justify-center gap-2 text-zinc-900 dark:text-zinc-100 font-semibold text-sm">
+          <Volume2 className="w-4 h-4 text-zinc-500" />
+          <span>Simple Mode</span>
         </div>
-        <p className="text-sm font-bold text-amber-800">
-          Tap any big icon below or tap "TALK" to speak.
+        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+          Tap any button or tap "Voice Assistant" to speak.
         </p>
       </div>
 
-      {/* 🚨 Emergency Ultra-Large Button */}
+      {/* Emergency Outlined Alert Button */}
       <button
         onClick={onOpenEmergency}
         onMouseEnter={() => speakPrompt("Emergency Help")}
-        className="w-full bg-[#D92D20] hover:bg-red-700 text-white p-6 sm:p-8 rounded-3xl shadow-emergency border-4 border-white flex flex-col items-center justify-center gap-3 transition-transform active:scale-95 group"
+        className="w-full border-2 border-red-200 dark:border-red-900/80 bg-red-50/50 dark:bg-red-950/20 hover:bg-red-50 dark:hover:bg-red-950/40 text-red-600 dark:text-red-400 p-5 rounded-xl flex items-center justify-center gap-3 transition-colors shadow-xs"
       >
-        <AlertTriangle className="w-16 h-16 fill-white text-[#D92D20] group-hover:animate-bounce" />
-        <span className="text-3xl sm:text-4xl font-black tracking-wider">🚨 EMERGENCY</span>
-        <span className="text-base sm:text-lg font-bold text-white/90">Call Ambulance & Help</span>
+        <AlertTriangle className="w-6 h-6 shrink-0 text-red-600 dark:text-red-400" />
+        <div className="text-left">
+          <span className="text-base font-semibold block">Emergency Assistance</span>
+          <span className="text-xs text-red-700/80 dark:text-red-400/80">Call 108 ambulance & emergency services</span>
+        </div>
       </button>
 
-      {/* Grid of 5 Ultra-Large Cards (Section 26) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+      {/* Grid of Large Clean Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         
-        {/* 💊 MY MEDICINES */}
+        {/* MY MEDICINES */}
         <button
           onClick={() => {
             speakPrompt("My Medicines");
             onNavigate('medicines');
           }}
-          className="bg-white hover:bg-blue-50 border-3 border-[#0057B8] text-[#0057B8] p-6 sm:p-8 rounded-3xl shadow-md flex flex-col items-center justify-center gap-3 transition-all active:scale-95 group"
+          className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-xs flex flex-col items-start gap-2 transition-colors text-left"
         >
-          <div className="w-20 h-20 rounded-2xl bg-blue-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Pill className="w-12 h-12 text-[#0057B8]" />
+          <div className="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            <Pill className="w-5 h-5" />
           </div>
-          <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">💊 MY MEDICINES</span>
-          <span className="text-sm font-bold text-slate-600">See Dawa Schedule</span>
+          <div>
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 block">My Medicines</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Daily dose schedule & reminders</span>
+          </div>
         </button>
 
-        {/* 🩺 DOCTOR */}
+        {/* DOCTOR APPOINTMENTS */}
         <button
           onClick={() => {
             speakPrompt("Doctor Appointments");
             onNavigate('appointments');
           }}
-          className="bg-white hover:bg-emerald-50 border-3 border-emerald-600 text-emerald-800 p-6 sm:p-8 rounded-3xl shadow-md flex flex-col items-center justify-center gap-3 transition-all active:scale-95 group"
+          className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-xs flex flex-col items-start gap-2 transition-colors text-left"
         >
-          <div className="w-20 h-20 rounded-2xl bg-emerald-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Stethoscope className="w-12 h-12 text-emerald-700" />
+          <div className="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            <Stethoscope className="w-5 h-5" />
           </div>
-          <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">🩺 DOCTOR</span>
-          <span className="text-sm font-bold text-slate-600">Check Appointment Queue</span>
+          <div>
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 block">Doctor Visits</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">OPD queue & booked appointments</span>
+          </div>
         </button>
 
-        {/* 📄 MY REPORTS */}
+        {/* MY REPORTS */}
         <button
           onClick={() => {
             speakPrompt("My Health Reports");
             onNavigate('records');
           }}
-          className="bg-white hover:bg-purple-50 border-3 border-purple-600 text-purple-800 p-6 sm:p-8 rounded-3xl shadow-md flex flex-col items-center justify-center gap-3 transition-all active:scale-95 group"
+          className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-xs flex flex-col items-start gap-2 transition-colors text-left"
         >
-          <div className="w-20 h-20 rounded-2xl bg-purple-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <FileText className="w-12 h-12 text-purple-700" />
+          <div className="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            <FileText className="w-5 h-5" />
           </div>
-          <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">📄 MY REPORTS</span>
-          <span className="text-sm font-bold text-slate-600">Scan Prescription / Files</span>
+          <div>
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 block">Health Records</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Scanned files & test reports</span>
+          </div>
         </button>
 
-        {/* 🏥 FIND HOSPITAL */}
+        {/* FIND HOSPITAL */}
         <button
           onClick={() => {
             speakPrompt("Find Hospital");
             onNavigate('hospitals');
           }}
-          className="bg-white hover:bg-red-50 border-3 border-red-500 text-red-800 p-6 sm:p-8 rounded-3xl shadow-md flex flex-col items-center justify-center gap-3 transition-all active:scale-95 group"
+          className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-xs flex flex-col items-start gap-2 transition-colors text-left"
         >
-          <div className="w-20 h-20 rounded-2xl bg-red-100 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Hospital className="w-12 h-12 text-red-700" />
+          <div className="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            <Hospital className="w-5 h-5" />
           </div>
-          <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">🏥 FIND HOSPITAL</span>
-          <span className="text-sm font-bold text-slate-600">Nearby ICU & Emergency</span>
+          <div>
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 block">Find Hospital</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Nearby ICU beds & phone routing</span>
+          </div>
+        </button>
+
+        {/* PREVENTIVE CARE */}
+        <button
+          onClick={() => {
+            speakPrompt("Preventive Care and Vaccines");
+            onNavigate('preventive_care');
+          }}
+          className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 shadow-xs flex flex-col items-start gap-2 transition-colors text-left sm:col-span-2"
+        >
+          <div className="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
+          <div>
+            <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 block">Preventive Care & Vaccines</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Immunization schedule, checkups, and care gaps</span>
+          </div>
         </button>
 
       </div>
 
-      {/* 🎤 TALK TO ASSISTANT */}
+      {/* TALK TO ASSISTANT */}
       <button
         onClick={() => {
           speakPrompt("Talk to Assistant");
           onOpenAssistant();
         }}
-        className="w-full bg-[#0057B8] hover:bg-blue-800 text-white p-6 sm:p-8 rounded-3xl shadow-lg border-4 border-blue-300 flex flex-col items-center justify-center gap-3 transition-all active:scale-95 group"
+        className="w-full bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 p-4 rounded-xl shadow-xs flex items-center justify-center gap-2 transition-colors"
       >
-        <Mic className="w-14 h-14 text-white group-hover:scale-110 transition-transform" />
-        <span className="text-2xl sm:text-3xl font-extrabold">🎤 TALK TO SWASTYA</span>
-        <span className="text-base font-bold text-blue-100">Speak in Hindi, Bengali, Odia, English</span>
+        <Mic className="w-4 h-4" />
+        <span className="text-xs font-semibold">Speak with SWASTYA Assistant</span>
       </button>
 
     </div>
   );
 };
+
+export default SimpleModeDashboard;

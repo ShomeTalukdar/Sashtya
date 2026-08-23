@@ -12,56 +12,58 @@ export const BillTransparencyPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <Receipt className="w-8 h-8 text-amber-700" />
-            <span>Medical Bill Transparency</span>
+          <span className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+            Line-Item Auditing
+          </span>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-0.5">
+            Medical Bill Transparency
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
-            Upload hospital bills to independently verify line items & calculate total charges.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Verify hospital bills, review line-item calculations, and detect potential duplicate charges.
           </p>
         </div>
 
         <button
           onClick={handleRunAudit}
-          className="bg-amber-700 hover:bg-amber-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95 shrink-0"
+          className="border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
         >
-          <Calculator className="w-4 h-4" />
-          <span>Re-verify Bill Calculations</span>
+          <Calculator className="w-3.5 h-3.5 text-zinc-400" />
+          <span>Verify Calculation</span>
         </button>
       </div>
 
-      {/* Respectful Guidance Disclaimer (Section 23) */}
-      <div className="bg-amber-50 border border-amber-200 p-4 rounded-3xl text-xs font-semibold text-amber-900 flex items-start gap-3">
-        <HelpCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+      {/* Guidance Box */}
+      <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-3 rounded-lg text-xs text-zinc-500 dark:text-zinc-400 flex items-start gap-2">
+        <HelpCircle className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
         <div>
-          <strong>Tone & Language Principle (Section 23):</strong> SWASTYA uses respectful verification language (e.g. <em>"This charge may require verification"</em>) rather than accusing healthcare providers.
+          <strong>Verification Guidance:</strong> SWASTYA verifies line items and highlights potential calculation questions for patient review.
         </div>
       </div>
 
       {/* Bill Overview Header */}
-      <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-card space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+      <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 dark:border-zinc-800 pb-3">
           <div>
-            <span className="text-xs font-bold text-amber-700 uppercase">Hospital Bill Transparency Audit</span>
-            <h2 className="text-2xl font-black text-slate-900">{bill.hospitalName}</h2>
-            <p className="text-xs text-slate-500 font-medium">Bill Date: {bill.billDate} • Patient: {bill.patientName}</p>
+            <span className="text-[11px] font-medium text-zinc-400 uppercase">Hospital Bill Audit</span>
+            <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 mt-0.5">{bill.hospitalName}</h2>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Bill Date: {bill.billDate} • Patient: {bill.patientName}</p>
           </div>
 
           <div className="flex items-center gap-2">
             {bill.discrepanciesCount > 0 ? (
-              <span className="px-3 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-black flex items-center gap-1.5">
-                <AlertTriangle className="w-4 h-4 text-amber-700" />
-                <span>{bill.discrepanciesCount} Line Flagged for Verification</span>
+              <span className="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-zinc-500" />
+                <span>{bill.discrepanciesCount} Item Flagged</span>
               </span>
             ) : (
-              <span className="px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Totals Match Calculated Rate</span>
+              <span className="px-2.5 py-1 rounded-md text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 text-xs font-medium flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Totals Match</span>
               </span>
             )}
           </div>
@@ -70,36 +72,36 @@ export const BillTransparencyPage: React.FC = () => {
         {/* Itemized Line Items Table */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 font-extrabold uppercase border-y border-slate-200">
+            <thead className="text-zinc-400 font-medium uppercase border-b border-zinc-100 dark:border-zinc-800">
               <tr>
-                <th className="py-3 px-3">Item Description</th>
-                <th className="py-3 px-3 text-center">Qty</th>
-                <th className="py-3 px-3 text-right">Unit Cost</th>
-                <th className="py-3 px-3 text-right">Billed Amount</th>
-                <th className="py-3 px-3 text-center">Status</th>
+                <th className="py-2.5 px-3">Item Description</th>
+                <th className="py-2.5 px-3 text-center">Qty</th>
+                <th className="py-2.5 px-3 text-right">Unit Cost</th>
+                <th className="py-2.5 px-3 text-right">Billed Amount</th>
+                <th className="py-2.5 px-3 text-center">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-800 font-medium">
+            <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium">
               {bill.items.map((item) => (
-                <tr key={item.id} className={item.requiresVerification ? 'bg-amber-50/60' : ''}>
+                <tr key={item.id} className={item.requiresVerification ? 'bg-zinc-50 dark:bg-zinc-800/40' : ''}>
                   <td className="py-3 px-3">
-                    <strong className="font-extrabold text-slate-900 block">{item.chargeName}</strong>
+                    <strong className="font-semibold text-zinc-900 dark:text-zinc-100 block">{item.chargeName}</strong>
                     {item.flaggedIssue && (
-                      <span className="text-[11px] text-amber-800 font-bold block mt-1">
-                        ⚠️ {item.flaggedIssue}
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block mt-0.5">
+                        {item.flaggedIssue}
                       </span>
                     )}
                   </td>
-                  <td className="py-3 px-3 text-center font-bold">{item.quantity}</td>
-                  <td className="py-3 px-3 text-right">₹{item.unitCost.toLocaleString('en-IN')}</td>
-                  <td className="py-3 px-3 text-right font-black">₹{item.totalCost.toLocaleString('en-IN')}</td>
+                  <td className="py-3 px-3 text-center font-medium">{item.quantity}</td>
+                  <td className="py-3 px-3 text-right text-zinc-500">₹{item.unitCost.toLocaleString('en-IN')}</td>
+                  <td className="py-3 px-3 text-right font-semibold text-zinc-900 dark:text-zinc-100">₹{item.totalCost.toLocaleString('en-IN')}</td>
                   <td className="py-3 px-3 text-center">
                     {item.requiresVerification ? (
-                      <span className="px-2.5 py-1 rounded-md bg-amber-200 text-amber-900 text-[10px] font-black">
-                        Requires Verification
+                      <span className="px-2 py-0.5 rounded text-[10px] font-medium text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                        Check Needed
                       </span>
                     ) : (
-                      <span className="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40">
                         Verified
                       </span>
                     )}
@@ -111,15 +113,15 @@ export const BillTransparencyPage: React.FC = () => {
         </div>
 
         {/* Totals Summary */}
-        <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50 p-4 rounded-2xl">
+        <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/40">
           <div>
-            <span className="text-xs font-semibold text-slate-500 block">Calculated Mathematical Total</span>
-            <span className="text-2xl font-black text-slate-900">₹{bill.calculatedGrandTotal.toLocaleString('en-IN')}</span>
+            <span className="text-xs text-zinc-400 block">Calculated Mathematical Total</span>
+            <span className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">₹{bill.calculatedGrandTotal.toLocaleString('en-IN')}</span>
           </div>
 
-          <div className="text-right">
-            <span className="text-xs font-semibold text-slate-500 block">Billed Grand Total</span>
-            <span className="text-2xl font-black text-amber-900">₹{bill.billedGrandTotal.toLocaleString('en-IN')}</span>
+          <div className="sm:text-right">
+            <span className="text-xs text-zinc-400 block">Billed Grand Total</span>
+            <span className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">₹{bill.billedGrandTotal.toLocaleString('en-IN')}</span>
           </div>
         </div>
 
@@ -128,3 +130,5 @@ export const BillTransparencyPage: React.FC = () => {
     </div>
   );
 };
+
+export default BillTransparencyPage;

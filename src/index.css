@@ -4,123 +4,39 @@
 
 @layer base {
   :root {
-    --color-brand-blue: #0057B8;
-    --color-brand-cream: #FAF7F0;
-    --color-brand-charcoal: #202124;
-    --color-brand-emergency: #D92D20;
+    --bg-main: #FFFFFF;
+    --text-main: #0A0A0A;
   }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #FAF7F0;
-    color: #202124;
+    background-color: #FFFFFF;
+    color: #0A0A0A;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   html.dark body {
-    background-color: #0B0F19;
-    color: #F8FAFC;
+    background-color: #09090B;
+    color: #F4F4F5;
   }
-}
-
-/* Dark Mode Overrides for Slate Components */
-html.dark .bg-\[\#FAF7F0\] {
-  background-color: #0B0F19 !important;
-}
-
-html.dark .bg-white {
-  background-color: #1E293B !important;
-  color: #F8FAFC !important;
-}
-
-html.dark .bg-slate-50 {
-  background-color: #0F172A !important;
-  color: #E2E8F0 !important;
-}
-
-html.dark .bg-slate-100 {
-  background-color: #334155 !important;
-  color: #F1F5F9 !important;
-}
-
-html.dark .border-slate-200,
-html.dark .border-slate-100,
-html.dark .border-slate-300 {
-  border-color: #334155 !important;
-}
-
-html.dark .text-slate-900 {
-  color: #F8FAFC !important;
-}
-
-html.dark .text-slate-800 {
-  color: #F1F5F9 !important;
-}
-
-html.dark .text-slate-700,
-html.dark .text-slate-600 {
-  color: #CBD5E1 !important;
-}
-
-html.dark .text-slate-500 {
-  color: #94A3B8 !important;
-}
-
-html.dark .bg-\[\#EAF3FF\] {
-  background-color: #172554 !important;
-  color: #93C5FD !important;
-  border-color: #1E40AF !important;
-}
-
-html.dark .text-\[\#0057B8\] {
-  color: #60A5FA !important;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F0;
-}
-html.dark ::-webkit-scrollbar-track {
-  background: #0B0F19;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #E4E4E7;
   border-radius: 9999px;
 }
 html.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #27272A;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0057B8;
-}
-
-/* Low-Literacy / Simple Mode Utilities */
-.simple-mode-btn {
-  @apply text-xl font-bold py-6 px-8 rounded-2xl shadow-md border-2 border-slate-200 transition-all active:scale-95 flex flex-col items-center justify-center gap-3 text-center;
-}
-
-/* High Contrast / Large Text Accessibility Utilities */
-.accessibility-high-contrast {
-  --color-brand-cream: #FFFFFF;
-  --color-brand-charcoal: #000000;
-  font-size: 115%;
-}
-
-/* Pulse animation for Emergency button */
-@keyframes emergency-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(217, 45, 32, 0.7);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba(217, 45, 32, 0);
-  }
-}
-
-.emergency-pulse-btn {
-  animation: emergency-pulse 2s infinite;
+  background: #A1A1AA;
 }

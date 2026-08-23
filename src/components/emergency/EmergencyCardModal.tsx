@@ -12,7 +12,7 @@ export const EmergencyCardModal: React.FC<EmergencyCardModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const [card, setCard] = useState<EmergencyCard>(EmergencyService.getEmergencyCard());
+  const [card] = useState<EmergencyCard>(EmergencyService.getEmergencyCard());
   const [authorized, setAuthorized] = useState<boolean>(true);
 
   if (!isOpen) return null;
@@ -22,94 +22,91 @@ export const EmergencyCardModal: React.FC<EmergencyCardModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden">
         
         {/* Header */}
-        <div className="bg-[#0057B8] text-white p-5 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <ShieldCheck className="w-6 h-6 text-white" />
-            <div>
-              <h3 className="font-extrabold text-lg">EMERGENCY MEDICAL CARD</h3>
-              <p className="text-xs font-medium text-white/80">Authorized Restricted Emergency Profile</p>
-            </div>
+        <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
+            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Emergency Medical Card</h3>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white">
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-5">
+        <div className="p-5 space-y-4 text-xs">
           
-          {/* Privacy Notice Alert */}
-          <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold flex items-start gap-2.5">
-            <Lock className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+          {/* Privacy Notice */}
+          <div className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 flex items-start gap-2">
+            <Lock className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
             <div>
-              <strong>Restricted Privacy Protected:</strong> This QR card exposes ONLY user-authorized emergency information (Blood group, allergies, contact). Full medical records remain private.
+              <strong>Privacy Protected:</strong> Exposes only user-authorized emergency essentials (blood group, allergies, emergency contact).
             </div>
           </div>
 
           {/* QR Code Container */}
-          <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-3xl p-5 flex flex-col items-center justify-center text-center">
+          <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 flex flex-col items-center justify-center text-center bg-white dark:bg-zinc-950">
             <img 
               src={card.qrCodeUrl} 
               alt="Emergency QR Code" 
-              className="w-48 h-48 rounded-xl shadow-md border border-slate-200 bg-white p-2"
+              className="w-40 h-40 rounded-lg border border-zinc-100 dark:border-zinc-800 bg-white p-1"
             />
-            <span className="text-[11px] font-bold text-slate-500 mt-2">
-              Scan with any phone camera or QR reader for emergency access
+            <span className="text-[11px] text-zinc-400 mt-2">
+              Scan with camera for verified emergency profile
             </span>
           </div>
 
           {/* Patient Card Details */}
-          <div className="bg-[#FAF7F0] p-4 rounded-2xl border border-slate-200 space-y-2.5 text-xs text-slate-800">
-            <div className="flex items-center justify-between font-extrabold text-sm text-[#0057B8] pb-2 border-b border-slate-200">
-              <span>{card.fullName} ({card.age} yrs)</span>
-              <span className="px-2.5 py-1 rounded-full bg-[#D92D20] text-white text-xs">
-                BLOOD: {card.bloodGroup}
+          <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 space-y-2.5 text-zinc-700 dark:text-zinc-300">
+            <div className="flex items-center justify-between pb-2 border-b border-zinc-100 dark:border-zinc-800">
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">{card.fullName} ({card.age}y)</span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-medium text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/40">
+                Blood: {card.bloodGroup}
               </span>
             </div>
 
             <div>
-              <strong className="text-slate-600">Known Allergies:</strong>
-              <div className="flex flex-wrap gap-1 mt-1">
+              <span className="text-zinc-400 block text-[11px]">Known Allergies:</span>
+              <div className="flex flex-wrap gap-1 mt-0.5">
                 {card.allergies.map((alg, i) => (
-                  <span key={i} className="px-2 py-0.5 rounded-md bg-red-100 text-red-800 font-extrabold text-[11px]">
-                    ⚠️ {alg}
+                  <span key={i} className="px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px]">
+                    {alg}
                   </span>
                 ))}
               </div>
             </div>
 
             <div>
-              <strong className="text-slate-600">Emergency Contact:</strong>
-              <p className="font-extrabold text-slate-900 mt-0.5">
+              <span className="text-zinc-400 block text-[11px]">Emergency Contact:</span>
+              <p className="font-medium text-zinc-900 dark:text-zinc-100 mt-0.5">
                 {card.emergencyContact.name} ({card.emergencyContact.relationship}) — {card.emergencyContact.phone}
               </p>
             </div>
 
             <div>
-              <strong className="text-slate-600">Critical Emergency Notes:</strong>
-              <p className="font-medium text-slate-800 mt-0.5 bg-white p-2 rounded-lg border border-slate-200">
+              <span className="text-zinc-400 block text-[11px]">Critical Notes:</span>
+              <p className="mt-0.5 p-2 rounded bg-zinc-50 dark:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400">
                 {card.criticalNotes}
               </p>
             </div>
           </div>
 
           {/* Toggle Consent Controls */}
-          <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 border border-slate-200">
+          <div className="flex items-center justify-between p-3 rounded-lg border border-zinc-200 dark:border-zinc-800">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-              <span className="text-xs font-bold text-slate-800">Emergency QR Active</span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200">QR Broadcast Status</span>
             </div>
             <button 
               onClick={toggleAuth}
-              className={`px-3 py-1 rounded-lg text-xs font-extrabold transition-colors ${
-                authorized ? 'bg-emerald-700 text-white' : 'bg-slate-400 text-white'
+              className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
+                authorized ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900' : 'border border-zinc-200 text-zinc-400'
               }`}
             >
-              {authorized ? 'Authorized' : 'Paused'}
+              {authorized ? 'Active' : 'Paused'}
             </button>
           </div>
 
@@ -119,3 +116,5 @@ export const EmergencyCardModal: React.FC<EmergencyCardModalProps> = ({
     </div>
   );
 };
+
+export default EmergencyCardModal;

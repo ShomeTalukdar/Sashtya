@@ -17,6 +17,7 @@ import { HospitalsPage } from './components/hospitals/HospitalsPage';
 import { SchemesPage } from './components/schemes/SchemesPage';
 import { SpecialCarePage } from './components/special/SpecialCarePage';
 import { ReviewsPage } from './components/reviews/ReviewsPage';
+import { Preventive_Care } from './components/Preventive_Care';
 
 import { initialPatientProfile } from './services/mockData';
 import { MedicationService } from './services/medicationService';
@@ -80,7 +81,7 @@ export const App: React.FC = () => {
   const nextApp = AppointmentService.getAppointments()[0];
 
   return (
-    <div className={`min-h-screen bg-[#FAF7F0] dark:bg-[#0B0F19] text-slate-900 dark:text-slate-100 font-sans antialiased flex flex-col ${isHighContrast ? 'high-contrast-mode' : ''}`}>
+    <div className={`min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans antialiased flex flex-col selection:bg-indigo-500 selection:text-white ${isHighContrast ? 'contrast-125' : ''}`}>
       
       {/* Header */}
       <Header
@@ -100,7 +101,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 pb-24 md:pb-12">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 pb-28 md:pb-16">
         {isSimpleMode ? (
           <SimpleModeDashboard
             onNavigate={(tab) => {
@@ -163,6 +164,14 @@ export const App: React.FC = () => {
 
             {activeTab === 'reviews' && (
               <ReviewsPage />
+            )}
+
+            {activeTab === 'preventive_care' && (
+              <Preventive_Care
+                currentLang={currentLanguage as any}
+                onNavigate={setActiveTab}
+                onOpenEmergency={() => setIsEmergencyOpen(true)}
+              />
             )}
           </>
         )}

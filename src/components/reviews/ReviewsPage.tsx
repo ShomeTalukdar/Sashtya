@@ -36,80 +36,82 @@ export const ReviewsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <Star className="w-8 h-8 text-amber-500 fill-amber-500" />
-            <span>Healthcare Reviews & Ratings</span>
+          <span className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+            Community Insights
+          </span>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-0.5">
+            Healthcare Reviews
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
-            Verified community feedback on doctors, OPD waiting times, & hospital facilities.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Community feedback on doctor consultations, wait times, and facility hygiene.
           </p>
         </div>
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="bg-[#0057B8] hover:bg-blue-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95 shrink-0"
+          className="bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
         >
-          <Plus className="w-4 h-4" />
-          <span>Write Patient Review</span>
+          <Plus className="w-3.5 h-3.5" />
+          <span>Write Review</span>
         </button>
       </div>
 
       {/* Reviews List */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {reviews.map((rev) => (
-          <div key={rev.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-card space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div key={rev.id} className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-3 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 dark:border-zinc-800 pb-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-extrabold text-slate-900 text-lg">{rev.doctorName}</h3>
+                  <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">{rev.doctorName}</h3>
                   {rev.verifiedPatient && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">
-                      Verified Patient
+                    <span className="text-[10px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded">
+                      Verified
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-slate-500 font-medium">{rev.hospitalName} • {rev.date}</p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{rev.hospitalName} • {rev.date}</p>
               </div>
 
               {/* Star Score */}
-              <div className="flex items-center gap-1 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200 text-amber-900 font-black text-sm">
-                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+              <div className="flex items-center gap-1 text-xs font-medium text-zinc-800 dark:text-zinc-200">
+                <Star className="w-3.5 h-3.5 text-zinc-500 fill-zinc-500" />
                 <span>{rev.rating}.0 / 5.0</span>
               </div>
             </div>
 
             {/* Sub-ratings */}
-            <div className="grid grid-cols-3 gap-2 text-center text-xs font-semibold text-slate-600 bg-slate-50 p-2.5 rounded-2xl">
+            <div className="grid grid-cols-3 gap-2 text-center text-xs text-zinc-600 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-800/50 p-2 rounded-lg">
               <div>
-                <span className="block text-[10px] text-slate-400">Listening Skill</span>
-                <span className="font-extrabold text-slate-800">{rev.listeningSkillRating}★</span>
+                <span className="block text-[10px] text-zinc-400">Listening</span>
+                <span className="font-medium text-zinc-800 dark:text-zinc-200">{rev.listeningSkillRating}★</span>
               </div>
               <div>
-                <span className="block text-[10px] text-slate-400">Waiting Time</span>
-                <span className="font-extrabold text-slate-800">{rev.waitingTimeRating}★</span>
+                <span className="block text-[10px] text-zinc-400">Wait Time</span>
+                <span className="font-medium text-zinc-800 dark:text-zinc-200">{rev.waitingTimeRating}★</span>
               </div>
               <div>
-                <span className="block text-[10px] text-slate-400">Cleanliness</span>
-                <span className="font-extrabold text-slate-800">{rev.cleanlinessRating}★</span>
+                <span className="block text-[10px] text-zinc-400">Cleanliness</span>
+                <span className="font-medium text-zinc-800 dark:text-zinc-200">{rev.cleanlinessRating}★</span>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-800 font-medium leading-relaxed">
+            <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
               "{rev.reviewText}"
             </p>
 
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 font-semibold">
+            <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
               <span>By {rev.authorName}</span>
               <button
                 onClick={() => handleVoteHelpful(rev.id)}
-                className="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center gap-1.5 transition-colors"
+                className="px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-1 transition-colors"
               >
-                <ThumbsUp className="w-3.5 h-3.5" />
+                <ThumbsUp className="w-3 h-3 text-zinc-400" />
                 <span>Helpful ({rev.helpfulVotesCount})</span>
               </button>
             </div>
@@ -117,80 +119,80 @@ export const ReviewsPage: React.FC = () => {
         ))}
       </div>
 
-      {/* ADD REVIEW MODAL */}
+      {/* Add Review Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <form onSubmit={handleAddReview} className="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-lg text-slate-900">Write Doctor / Hospital Review</h3>
-              <button type="button" onClick={() => setIsAddModalOpen(false)} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500">
-                <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <form onSubmit={handleAddReview} className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl border border-zinc-200 dark:border-zinc-800">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Write Patient Review</h3>
+              <button type="button" onClick={() => setIsAddModalOpen(false)} className="text-zinc-400 hover:text-zinc-600">
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Doctor Name</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Doctor Name</label>
                 <input
                   type="text"
                   value={doctorName}
                   onChange={(e) => setDoctorName(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Hospital / Clinic</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Hospital / Clinic</label>
                 <input
                   type="text"
                   value={hospitalName}
                   onChange={(e) => setHospitalName(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Rating (1 to 5 Stars)</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Rating</label>
                 <select
                   value={rating}
                   onChange={(e) => setRating(parseInt(e.target.value))}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-bold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                 >
-                  <option value={5}>5 Stars - Outstanding Care</option>
-                  <option value={4}>4 Stars - Good Experience</option>
+                  <option value={5}>5 Stars - Outstanding</option>
+                  <option value={4}>4 Stars - Good</option>
                   <option value={3}>3 Stars - Average</option>
                   <option value={2}>2 Stars - Needs Improvement</option>
-                  <option value={1}>1 Star - Poor Experience</option>
+                  <option value={1}>1 Star - Poor</option>
                 </select>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Review Feedback</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Review Feedback</label>
                 <textarea
                   value={reviewText}
                   onChange={(e) => setReviewText(e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs text-slate-700"
+                className="px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-[#0057B8] hover:bg-blue-800 text-white font-extrabold text-xs shadow-md"
+                className="px-3.5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium"
               >
-                Submit Review
+                Submit
               </button>
             </div>
           </form>
@@ -200,3 +202,5 @@ export const ReviewsPage: React.FC = () => {
     </div>
   );
 };
+
+export default ReviewsPage;

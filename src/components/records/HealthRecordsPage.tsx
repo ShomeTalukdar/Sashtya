@@ -9,8 +9,7 @@ import {
   Trash2,
   User,
   X,
-  CheckCircle2,
-  FileCheck
+  CheckCircle2
 } from 'lucide-react';
 import { HealthRecord, RecordCategory } from '../../types';
 import { initialHealthRecords } from '../../services/mockData';
@@ -54,7 +53,6 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
     if (file) {
       setIsUploading(true);
       
-      // Generate instant preview Object URL for desktop photo uploads
       const fileUrl = file.type.startsWith('image/') 
         ? URL.createObjectURL(file) 
         : 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&auto=format&fit=crop&q=60';
@@ -75,9 +73,9 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
         };
         setRecords([newRecord, ...records]);
         setIsUploading(false);
-        setUploadSuccess(`Successfully uploaded "${file.name}" from Desktop!`);
+        setUploadSuccess(`Uploaded "${file.name}"`);
         setTimeout(() => setUploadSuccess(''), 4000);
-      }, 600);
+      }, 500);
     }
   };
 
@@ -87,76 +85,73 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       
       {/* Header & Main Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <FileText className="w-8 h-8 text-[#0057B8]" />
-            <span>Digital Health Records</span>
+          <span className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+            Digital Health Records
+          </span>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-0.5">
+            Medical Documents & Scans
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
-            Upload medical photos & files directly from Desktop or scan prescriptions with AI OCR.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Upload prescriptions, lab reports, and imaging scans for AI OCR processing.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          {/* Prescription Scan + OCR Button */}
+        <div className="flex items-center gap-2">
           <button
             onClick={onOpenScanModal}
-            className="bg-gradient-to-r from-[#0057B8] to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95"
+            className="bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-xs"
           >
-            <Sparkles className="w-4 h-4 text-amber-300 fill-amber-300" />
-            <span>Scan Desktop Prescription OCR</span>
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Scan OCR</span>
           </button>
 
-          {/* Upload Desktop File Input */}
-          <label className="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md cursor-pointer transition-all active:scale-95">
-            <Upload className="w-4 h-4" />
-            <span>{isUploading ? 'Uploading Desktop File...' : 'Upload Desktop Photo/File'}</span>
+          <label className="border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs">
+            <Upload className="w-3.5 h-3.5 text-zinc-400" />
+            <span>{isUploading ? 'Uploading...' : 'Upload File'}</span>
             <input type="file" onChange={handleFileUpload} className="hidden" accept="image/*,.pdf" />
           </label>
         </div>
       </div>
 
       {uploadSuccess && (
-        <div className="p-3.5 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-2xl text-xs font-bold flex items-center gap-2 animate-in fade-in duration-200 shadow-xs">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-300 rounded-lg text-xs font-medium flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{uploadSuccess}</span>
         </div>
       )}
 
       {/* Search & Category Filter Pills */}
-      <div className="bg-white p-4 rounded-3xl border border-slate-200 shadow-card space-y-4">
-        
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search records by title, doctor name, or tag (e.g. 'Blood test', 'Prescription')..."
-            className="w-full bg-slate-50 border border-slate-300 rounded-2xl pl-12 pr-4 py-3 text-sm text-slate-900 outline-none focus:border-[#0057B8] focus:bg-white transition-all font-medium"
-          />
-        </div>
-
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-2xl text-xs font-extrabold whitespace-nowrap transition-all ${
+              className={`px-2.5 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === cat
-                  ? 'bg-[#0057B8] text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
               }`}
             >
               {cat}
             </button>
           ))}
+        </div>
+
+        <div className="relative sm:w-60">
+          <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2.5" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search records..."
+            className="w-full pl-8 pr-2.5 py-1.5 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md text-zinc-900 dark:text-zinc-100 outline-none focus:border-zinc-400"
+          />
         </div>
       </div>
 
@@ -165,66 +160,54 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
         {filteredRecords.map((rec) => (
           <div 
             key={rec.id}
-            className="bg-white p-5 rounded-3xl border border-slate-200 shadow-card hover:shadow-cardHover transition-all flex flex-col justify-between"
+            className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs flex flex-col justify-between space-y-4 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
           >
             <div>
-              <div className="flex items-start justify-between gap-3">
-                <span className="px-3 py-1 rounded-full bg-[#EAF3FF] text-[#0057B8] text-xs font-black">
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-[11px] font-medium text-zinc-400 uppercase">
                   {rec.category}
                 </span>
-                <span className="text-xs text-slate-400 font-semibold">{rec.dateUploaded}</span>
+                <span className="text-[11px] text-zinc-400">{rec.dateUploaded}</span>
               </div>
 
-              <h3 className="font-extrabold text-slate-900 text-base mt-2.5 flex items-center gap-2">
-                <span>{rec.title}</span>
-                {rec.tags.includes('Desktop Photo') && (
-                  <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Desktop Upload</span>
-                )}
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm mt-1">
+                {rec.title}
               </h3>
 
               {rec.doctorName && (
-                <p className="text-xs text-slate-600 font-semibold mt-1 flex items-center gap-1">
-                  <User className="w-3.5 h-3.5 text-slate-400" />
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 flex items-center gap-1">
+                  <User className="w-3 h-3 text-zinc-400" />
                   <span>{rec.doctorName} • {rec.hospitalName}</span>
                 </p>
               )}
 
               {rec.notes && (
-                <p className="text-xs text-slate-500 font-medium mt-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 bg-zinc-50 dark:bg-zinc-800/60 p-2.5 rounded-lg">
                   {rec.notes}
                 </p>
               )}
-
-              {/* Tag Chips */}
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {rec.tags.map((tag, idx) => (
-                  <span key={idx} className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-bold">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
             </div>
 
             {/* Action buttons */}
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-[11px] font-semibold text-slate-400">
+            <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+              <span className="text-[11px] text-zinc-400">
                 {rec.fileType.toUpperCase()} • {rec.fileSizeMb} MB
               </span>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSelectedRecord(rec)}
-                  className="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0057B8] font-bold text-xs flex items-center gap-1 transition-colors"
+                  className="px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-xs font-medium flex items-center gap-1 transition-colors"
                 >
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-3 h-3 text-zinc-400" />
                   <span>Preview</span>
                 </button>
                 <button
                   onClick={() => handleDeleteRecord(rec.id)}
-                  className="p-1.5 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors"
+                  className="p-1 rounded-md text-zinc-400 hover:text-red-600 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
                   title="Delete Record"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -234,32 +217,32 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
 
       {/* Preview Modal */}
       {selectedRecord && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 rounded-xl max-w-xl w-full p-6 space-y-4 shadow-xl border border-zinc-200 dark:border-zinc-800 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
               <div>
-                <span className="text-xs font-bold text-[#0057B8] uppercase">{selectedRecord.category}</span>
-                <h3 className="text-xl font-extrabold text-slate-900">{selectedRecord.title}</h3>
+                <span className="text-[11px] font-medium text-zinc-400 uppercase">{selectedRecord.category}</span>
+                <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">{selectedRecord.title}</h3>
               </div>
-              <button onClick={() => setSelectedRecord(null)} className="p-2 rounded-full hover:bg-slate-100 text-slate-500">
-                <X className="w-5 h-5" />
+              <button onClick={() => setSelectedRecord(null)} className="text-zinc-400 hover:text-zinc-600">
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 max-h-96 flex items-center justify-center relative">
-              <img src={selectedRecord.fileUrl} alt={selectedRecord.title} className="max-h-96 w-full object-contain" />
+            <div className="rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-950 max-h-80 flex items-center justify-center">
+              <img src={selectedRecord.fileUrl} alt={selectedRecord.title} className="max-h-80 w-full object-contain" />
             </div>
 
-            <div className="flex items-center justify-between text-xs text-slate-600 font-medium pt-2 border-t border-slate-100">
+            <div className="flex items-center justify-between text-xs text-zinc-500 pt-2 border-t border-zinc-100 dark:border-zinc-800">
               <span>Doctor: {selectedRecord.doctorName}</span>
               <a 
                 href={selectedRecord.fileUrl} 
                 target="_blank" 
                 rel="noreferrer"
-                className="px-4 py-2 rounded-xl bg-[#0057B8] text-white font-bold flex items-center gap-1.5 shadow-md"
+                className="px-3 py-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-medium flex items-center gap-1.5"
               >
-                <Download className="w-4 h-4" />
-                <span>View Full Resolution</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>Full Resolution</span>
               </a>
             </div>
           </div>
@@ -269,3 +252,5 @@ export const HealthRecordsPage: React.FC<HealthRecordsPageProps> = ({
     </div>
   );
 };
+
+export default HealthRecordsPage;

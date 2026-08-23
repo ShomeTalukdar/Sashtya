@@ -80,7 +80,7 @@ export const FamilyPage: React.FC = () => {
     setNewMemberName('');
     setNewMemberAge(25);
     setNewMemberPhone('+91 ');
-    triggerNotification(`Successfully added ${newMemberName} to your family profiles!`);
+    triggerNotification(`Added ${newMemberName} to family profiles`);
   };
 
   const handleDeleteMember = (memberId: string, name: string) => {
@@ -108,7 +108,7 @@ export const FamilyPage: React.FC = () => {
     setNewConditionName('');
     setSelectedAffectedMembers([]);
     setNewDiseaseNotes('');
-    triggerNotification(`Added "${newConditionName}" to Family Medical History!`);
+    triggerNotification(`Added "${newConditionName}" to family history`);
   };
 
   const handleDeleteDisease = (historyId: string, conditionName: string) => {
@@ -126,137 +126,128 @@ export const FamilyPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       
       {/* Header & Main Actions */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <Users className="w-8 h-8 text-purple-700" />
-            <span>My Family & Caregiver Hub</span>
+          <span className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+            Caregivers & Access
+          </span>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-0.5">
+            My Family Hub
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
-            Add family profiles, assign caregiver consent permissions, & track hereditary medical history.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Add family profiles, caregiver consent permissions, and hereditary health conditions.
           </p>
         </div>
 
-        {/* Action Buttons: Add Family Member & Add Diseases */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          
-          {/* Add Family Member Button */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setIsAddMemberOpen(true)}
-            className="bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95 shrink-0"
+            className="bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
           >
-            <UserPlus className="w-4 h-4" />
-            <span>+ Add Family Member</span>
+            <UserPlus className="w-3.5 h-3.5" />
+            <span>Add Member</span>
           </button>
 
-          {/* Add Disease / Medical Condition Button */}
           <button
             onClick={() => setIsAddDiseaseOpen(true)}
-            className="bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-700 hover:to-rose-800 text-white font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl flex items-center gap-2 shadow-md transition-all active:scale-95 shrink-0"
+            className="border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition-colors shadow-xs shrink-0"
           >
-            <HeartPulse className="w-4 h-4" />
-            <span>+ Add Disease / Condition</span>
+            <PlusCircle className="w-3.5 h-3.5 text-zinc-400" />
+            <span>Add Condition</span>
           </button>
-
         </div>
       </div>
 
-      {/* Notification Toast */}
       {notification && (
-        <div className="p-3.5 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-2xl text-xs font-bold flex items-center gap-2 shadow-xs animate-in fade-in duration-200">
-          <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-300 rounded-lg text-xs font-medium flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span>{notification}</span>
         </div>
       )}
 
-      {/* Privacy & Consent Banner */}
-      <div className="bg-purple-50 border border-purple-200 p-4 rounded-3xl text-xs font-semibold text-purple-900 flex items-start gap-3">
-        <Lock className="w-5 h-5 text-purple-700 shrink-0 mt-0.5" />
+      {/* Privacy Banner */}
+      <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-3 rounded-lg text-xs text-zinc-500 dark:text-zinc-400 flex items-start gap-2">
+        <Lock className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
         <div>
-          <strong>Strict Consent Rule (Section 38):</strong> SWASTYA never automatically exposes complete medical records to family members without explicit user authorization. You control exactly what each family member can view or manage.
+          <strong>Consent Protection:</strong> SWASTYA enforces explicit per-category permissions for each family member.
         </div>
       </div>
 
       {/* Family Member Cards Grid */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between px-1">
-          <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-500">
-            FAMILY MEMBERS & CAREGIVERS ({familyMembers.length})
-          </h3>
-          <span className="text-xs text-purple-700 font-bold">Click + Add Family Member to add more</span>
-        </div>
+        <h2 className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+          Family Profiles ({familyMembers.length})
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {familyMembers.map((member) => (
             <div 
               key={member.id}
-              className="bg-white p-5 rounded-3xl border border-slate-200 shadow-card space-y-4 hover:shadow-cardHover transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-lg">
+                    <div className="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 flex items-center justify-center font-semibold text-xs">
                       {member.fullName.charAt(0)}
                     </div>
                     <div>
-                      <span className="px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 text-[10px] font-black uppercase">
+                      <span className="text-[10px] font-medium text-zinc-400 uppercase">
                         {member.relationship}
                       </span>
-                      <h3 className="font-extrabold text-slate-900 text-base mt-0.5">{member.fullName} ({member.age} yrs)</h3>
-                      <p className="text-xs text-slate-500 font-medium">{member.phone}</p>
+                      <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">{member.fullName} ({member.age}y)</h3>
+                      <p className="text-xs text-zinc-400">{member.phone}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1">
                     <button
                       onClick={() => setSelectedMember(member)}
-                      className="px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-800 font-extrabold text-xs transition-colors"
+                      className="px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium text-xs transition-colors"
                     >
                       Consent
                     </button>
                     <button
                       onClick={() => handleDeleteMember(member.id, member.fullName)}
-                      className="p-2 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors"
-                      title="Remove Family Member"
+                      className="p-1 rounded-md text-zinc-400 hover:text-red-600 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                      title="Remove Member"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
 
-                {/* Permissions Matrix Pills */}
-                <div className="pt-3 border-t border-slate-100 space-y-2 text-xs mt-3">
-                  <span className="font-bold text-slate-400 text-[10px] uppercase">Active Consent Permissions</span>
-                  
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className={`p-2 rounded-xl border flex items-center gap-1.5 text-[11px] ${
-                      member.permissions.canViewAppointments ? 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'
+                {/* Permissions matrix */}
+                <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-1 text-xs mt-3">
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <div className={`p-1.5 rounded border flex items-center gap-1.5 text-[11px] ${
+                      member.permissions.canViewAppointments ? 'border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium' : 'border-transparent text-zinc-400'
                     }`}>
-                      {member.permissions.canViewAppointments ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                      {member.permissions.canViewAppointments ? <Check className="w-3 h-3 text-zinc-700 dark:text-zinc-300" /> : <X className="w-3 h-3 text-zinc-300" />}
                       <span>Appointments</span>
                     </div>
 
-                    <div className={`p-2 rounded-xl border flex items-center gap-1.5 text-[11px] ${
-                      member.permissions.canManageMedications ? 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'
+                    <div className={`p-1.5 rounded border flex items-center gap-1.5 text-[11px] ${
+                      member.permissions.canManageMedications ? 'border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium' : 'border-transparent text-zinc-400'
                     }`}>
-                      {member.permissions.canManageMedications ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                      {member.permissions.canManageMedications ? <Check className="w-3 h-3 text-zinc-700 dark:text-zinc-300" /> : <X className="w-3 h-3 text-zinc-300" />}
                       <span>Medications</span>
                     </div>
 
-                    <div className={`p-2 rounded-xl border flex items-center gap-1.5 text-[11px] ${
-                      member.permissions.canViewEmergencyCard ? 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'
+                    <div className={`p-1.5 rounded border flex items-center gap-1.5 text-[11px] ${
+                      member.permissions.canViewEmergencyCard ? 'border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium' : 'border-transparent text-zinc-400'
                     }`}>
-                      {member.permissions.canViewEmergencyCard ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                      {member.permissions.canViewEmergencyCard ? <Check className="w-3 h-3 text-zinc-700 dark:text-zinc-300" /> : <X className="w-3 h-3 text-zinc-300" />}
                       <span>Emergency Card</span>
                     </div>
 
-                    <div className={`p-2 rounded-xl border flex items-center gap-1.5 text-[11px] ${
-                      member.permissions.canViewMedicalDocuments ? 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'
+                    <div className={`p-1.5 rounded border flex items-center gap-1.5 text-[11px] ${
+                      member.permissions.canViewMedicalDocuments ? 'border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium' : 'border-transparent text-zinc-400'
                     }`}>
-                      {member.permissions.canViewMedicalDocuments ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                      {member.permissions.canViewMedicalDocuments ? <Check className="w-3 h-3 text-zinc-700 dark:text-zinc-300" /> : <X className="w-3 h-3 text-zinc-300" />}
                       <span>Documents</span>
                     </div>
                   </div>
@@ -267,95 +258,78 @@ export const FamilyPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Family Medical History & Diseases Section */}
-      <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-card space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
-            <History className="w-5 h-5 text-red-600" />
-            <span>Family Health History & Diseases ({familyHistory.length})</span>
+      {/* Family Medical History Section */}
+      <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-3">
+        <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+            Family Medical History ({familyHistory.length})
           </h3>
           <button
             onClick={() => setIsAddDiseaseOpen(true)}
-            className="px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 font-extrabold text-xs flex items-center gap-1.5 transition-colors"
+            className="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Add Disease</span>
+            <PlusCircle className="w-3.5 h-3.5" />
+            <span>Add Condition</span>
           </button>
         </div>
 
-        <div className="space-y-3 text-xs">
+        <div className="divide-y divide-zinc-100 dark:divide-zinc-800 text-xs">
           {familyHistory.map((item) => (
-            <div key={item.id} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-start justify-between gap-3 hover:bg-red-50/20 transition-colors">
+            <div key={item.id} className="py-3 flex items-start justify-between gap-3">
               <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <strong className="font-extrabold text-slate-900 text-sm sm:text-base">{item.conditionName}</strong>
-                  <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 font-extrabold text-[10px] uppercase">
-                    Hereditary / Recorded Condition
-                  </span>
+                <div className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">{item.conditionName}</div>
+                <div className="text-zinc-500 dark:text-zinc-400">
+                  Affected: {item.affectedMembers.join(', ')}
                 </div>
-
-                <div className="flex flex-wrap items-center gap-1.5 text-xs text-slate-600 font-medium">
-                  <span className="font-bold text-slate-500">Affected Family Members:</span>
-                  {item.affectedMembers.map((m, idx) => (
-                    <span key={idx} className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-800 font-bold text-[11px]">
-                      {m}
-                    </span>
-                  ))}
-                </div>
-
                 {item.notes && (
-                  <p className="text-xs text-slate-500 font-medium italic mt-1">
-                    Note: "{item.notes}"
+                  <p className="text-zinc-400 italic">
+                    "{item.notes}"
                   </p>
                 )}
               </div>
 
               <button
                 onClick={() => handleDeleteDisease(item.id, item.conditionName)}
-                className="p-2 rounded-xl bg-white hover:bg-red-100 text-slate-400 hover:text-red-700 transition-colors border border-slate-200 shrink-0"
-                title="Delete Disease History Entry"
+                className="p-1 text-zinc-400 hover:text-red-600 transition-colors"
+                title="Delete Entry"
               >
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
           ))}
         </div>
       </div>
 
-      {/* MODAL 1: ADD FAMILY MEMBER */}
+      {/* Modal 1: Add Family Member */}
       {isAddMemberOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <form onSubmit={handleAddMemberSubmit} className="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-lg text-slate-900 flex items-center gap-2">
-                <UserPlus className="w-5 h-5 text-purple-700" />
-                <span>Add New Family Member</span>
-              </h3>
-              <button type="button" onClick={() => setIsAddMemberOpen(false)} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500">
-                <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <form onSubmit={handleAddMemberSubmit} className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl border border-zinc-200 dark:border-zinc-800">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Add Family Member</h3>
+              <button type="button" onClick={() => setIsAddMemberOpen(false)} className="text-zinc-400 hover:text-zinc-600">
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="space-y-3.5 text-xs">
+            <div className="space-y-3 text-xs">
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Full Name</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Full Name</label>
                 <input
                   type="text"
                   value={newMemberName}
                   onChange={(e) => setNewMemberName(e.target.value)}
-                  placeholder="e.g. Ramesh Patnaik, Sunita Sharma..."
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 outline-none font-semibold text-slate-900 focus:border-purple-700 focus:bg-white transition-all text-sm"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Relationship</label>
+                  <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Relationship</label>
                   <select
                     value={newMemberRel}
                     onChange={(e) => setNewMemberRel(e.target.value as FamilyRelationship)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 outline-none font-semibold text-slate-900 focus:border-purple-700 focus:bg-white"
+                    className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100"
                   >
                     <option value="Father">Father</option>
                     <option value="Mother">Mother</option>
@@ -368,226 +342,150 @@ export const FamilyPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Age (Years)</label>
+                  <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Age</label>
                   <input
                     type="number"
                     value={newMemberAge}
                     onChange={(e) => setNewMemberAge(parseInt(e.target.value) || 1)}
-                    className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 outline-none font-semibold text-slate-900 focus:border-purple-700"
+                    className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100"
                     required
-                    min={1}
-                    max={120}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Phone Number</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Phone Number</label>
                 <input
                   type="tel"
                   value={newMemberPhone}
                   onChange={(e) => setNewMemberPhone(e.target.value)}
-                  placeholder="+91 98765 43210"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 outline-none font-semibold text-slate-900 focus:border-purple-700"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100"
                   required
                 />
               </div>
-
-              {/* Initial Consent Permissions Checkboxes */}
-              <div className="space-y-2 pt-2 border-t border-slate-100">
-                <span className="font-extrabold text-slate-800 block">Initial Consent Permissions:</span>
-                
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={newMemberPerms.canViewAppointments}
-                      onChange={(e) => setNewMemberPerms({ ...newMemberPerms, canViewAppointments: e.target.checked })}
-                      className="w-4 h-4 text-purple-700 rounded"
-                    />
-                    <span>Appointments</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={newMemberPerms.canManageMedications}
-                      onChange={(e) => setNewMemberPerms({ ...newMemberPerms, canManageMedications: e.target.checked })}
-                      className="w-4 h-4 text-purple-700 rounded"
-                    />
-                    <span>Medications</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={newMemberPerms.canViewEmergencyCard}
-                      onChange={(e) => setNewMemberPerms({ ...newMemberPerms, canViewEmergencyCard: e.target.checked })}
-                      className="w-4 h-4 text-purple-700 rounded"
-                    />
-                    <span>Emergency Card</span>
-                  </label>
-
-                  <label className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-semibold cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={newMemberPerms.canViewMedicalDocuments}
-                      onChange={(e) => setNewMemberPerms({ ...newMemberPerms, canViewMedicalDocuments: e.target.checked })}
-                      className="w-4 h-4 text-purple-700 rounded"
-                    />
-                    <span>Documents</span>
-                  </label>
-                </div>
-              </div>
-
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <button
                 type="button"
                 onClick={() => setIsAddMemberOpen(false)}
-                className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs text-slate-700"
+                className="px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs shadow-md"
+                className="px-3.5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium"
               >
-                Save Family Member
+                Save
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* MODAL 2: ADD FAMILY DISEASE / CONDITION */}
+      {/* Modal 2: Add Disease */}
       {isAddDiseaseOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <form onSubmit={handleAddDiseaseSubmit} className="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-lg text-slate-900 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-red-600" />
-                <span>Add Family Disease / Condition</span>
-              </h3>
-              <button type="button" onClick={() => setIsAddDiseaseOpen(false)} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500">
-                <X className="w-5 h-5" />
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <form onSubmit={handleAddDiseaseSubmit} className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl border border-zinc-200 dark:border-zinc-800">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Add Family Condition</h3>
+              <button type="button" onClick={() => setIsAddDiseaseOpen(false)} className="text-zinc-400 hover:text-zinc-600">
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="space-y-3.5 text-xs">
+            <div className="space-y-3 text-xs">
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Disease / Condition Name</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Condition Name</label>
                 <input
                   type="text"
                   value={newConditionName}
                   onChange={(e) => setNewConditionName(e.target.value)}
-                  placeholder="e.g. Type 2 Diabetes, Hypertension, Asthma, Thyroid Disorder..."
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 outline-none font-semibold text-slate-900 focus:border-red-600 focus:bg-white transition-all text-sm"
+                  placeholder="e.g. Type 2 Diabetes, Hypertension..."
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                   required
                 />
               </div>
 
-              {/* Select Affected Family Members */}
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Select Affected Family Member(s)</label>
-                <div className="flex flex-wrap gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-200 max-h-36 overflow-y-auto">
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Affected Members</label>
+                <div className="flex flex-wrap gap-1.5 p-2 rounded-md border border-zinc-200 dark:border-zinc-800">
                   {familyMembers.map((m) => {
-                    const isSelected = selectedAffectedMembers.includes(m.fullName) || selectedAffectedMembers.includes(m.relationship);
+                    const isSelected = selectedAffectedMembers.includes(m.fullName);
                     return (
                       <button
                         type="button"
                         key={m.id}
                         onClick={() => toggleAffectedMemberSelection(m.fullName)}
-                        className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-all border ${
+                        className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
                           isSelected
-                            ? 'bg-red-600 text-white border-red-600 shadow-xs'
-                            : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                            ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900'
+                            : 'border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'
                         }`}
                       >
-                        {isSelected ? '✓ ' : '+ '}{m.fullName} ({m.relationship})
+                        {m.fullName}
                       </button>
                     );
-                  })}
-                  {['Father', 'Mother', 'Grandmother', 'Grandfather', 'Self'].map((rel) => {
-                    if (!familyMembers.some(m => m.relationship === rel || m.fullName === rel)) {
-                      const isSelected = selectedAffectedMembers.includes(rel);
-                      return (
-                        <button
-                          type="button"
-                          key={rel}
-                          onClick={() => toggleAffectedMemberSelection(rel)}
-                          className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-all border ${
-                            isSelected
-                              ? 'bg-red-600 text-white border-red-600 shadow-xs'
-                              : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
-                          }`}
-                        >
-                          {isSelected ? '✓ ' : '+ '}{rel}
-                        </button>
-                      );
-                    }
-                    return null;
                   })}
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Medical Notes & Treatment History (Optional)</label>
+                <label className="font-medium text-zinc-700 dark:text-zinc-300 block mb-1">Notes</label>
                 <textarea
                   value={newDiseaseNotes}
                   onChange={(e) => setNewDiseaseNotes(e.target.value)}
-                  placeholder="e.g. Diagnosed in 2018, daily insulin therapy, regular eye & kidney screenings..."
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 outline-none font-semibold text-slate-900 focus:border-red-600 focus:bg-white h-20 resize-none"
+                  rows={2}
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5 text-zinc-900 dark:text-zinc-100 outline-none"
                 />
               </div>
-
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <button
                 type="button"
                 onClick={() => setIsAddDiseaseOpen(false)}
-                className="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs text-slate-700"
+                className="px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs shadow-md"
+                className="px-3.5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium"
               >
-                Save Disease Record
+                Save
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* Permission Consent Matrix Modal */}
+      {/* Permission Consent Modal */}
       {selectedMember && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-lg text-slate-900">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-zinc-900 rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl border border-zinc-200 dark:border-zinc-800">
+            <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
                 Consent Matrix: {selectedMember.fullName}
               </h3>
-              <button onClick={() => setSelectedMember(null)} className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500">
-                <X className="w-5 h-5" />
+              <button onClick={() => setSelectedMember(null)} className="text-zinc-400 hover:text-zinc-600">
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-2 text-xs">
               {(Object.keys(selectedMember.permissions) as (keyof FamilyPermission)[]).map((key) => (
-                <div key={key} className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200">
-                  <span className="font-bold text-slate-800 capitalize">
+                <div key={key} className="flex items-center justify-between p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800">
+                  <span className="font-medium text-zinc-800 dark:text-zinc-200 capitalize">
                     {key.replace('can', '').replace(/([A-Z])/g, ' $1')}
                   </span>
                   <button
                     onClick={() => handleTogglePermission(selectedMember.id, key)}
-                    className={`px-3 py-1 rounded-xl font-extrabold transition-colors ${
+                    className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
                       selectedMember.permissions[key]
-                        ? 'bg-emerald-700 text-white'
-                        : 'bg-slate-300 text-slate-700'
+                        ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900'
+                        : 'border border-zinc-200 dark:border-zinc-800 text-zinc-500'
                     }`}
                   >
                     {selectedMember.permissions[key] ? 'Allowed' : 'Denied'}
@@ -602,3 +500,5 @@ export const FamilyPage: React.FC = () => {
     </div>
   );
 };
+
+export default FamilyPage;

@@ -294,5 +294,64 @@ export interface HealthcareReview {
   date: string;
 }
 
+// Preventive Care Tracker Types & Lifecycle
+export type PreventiveCareLifecycleStage = 
+  | 'recommended'
+  | 'due_date_set'
+  | 'appointment_booked'
+  | 'visit_completed'
+  | 'report_uploaded'
+  | 'care_completed';
+
+export type PreventiveCareCategory = 'vaccination' | 'screening' | 'checkup' | 'follow_up';
+
+export type PreventiveCareStatus = 'completed' | 'due_soon' | 'overdue';
+
+export interface PreventiveCareActivity {
+  id: string;
+  patientId: string;
+  patientName: string;
+  patientAge: number;
+  patientVillage: string;
+  patientPhone?: string;
+  activityName: string;
+  category: PreventiveCareCategory;
+  lifecycleStage: PreventiveCareLifecycleStage;
+  dueDate: string; // YYYY-MM-DD
+  recommendedDate: string; // YYYY-MM-DD
+  healthWorkerId?: string;
+  healthWorkerName?: string;
+  healthWorkerRole?: string;
+  clinicId?: string;
+  clinicName?: string;
+  appointmentId?: string;
+  appointment?: {
+    id: string;
+    tokenNumber: number;
+    appointmentDate: string;
+    slotTime: string;
+    clinicName: string;
+    status: string;
+  };
+  medicalRecordId?: string;
+  medicalRecordTitle?: string;
+  notes?: string;
+  completedAt?: string;
+  createdAt: string;
+  status: PreventiveCareStatus;
+  daysRemaining: number;
+  isCareGap: boolean;
+  stageIndex: number;
+}
+
+export interface PreventiveCareMetrics {
+  total: number;
+  completed: number;
+  dueSoon: number;
+  overdue: number;
+  careGapsCount: number;
+}
+
 // Offline Sync State
 export type SyncStatus = 'Synced' | 'Syncing' | 'Offline' | 'Sync Failed';
+

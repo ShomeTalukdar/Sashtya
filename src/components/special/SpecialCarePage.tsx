@@ -4,47 +4,47 @@ import { EmergencyService } from '../../services/emergencyService';
 
 export const SpecialCarePage: React.FC = () => {
   const [careType, setCareType] = useState<'maternal' | 'disability'>('maternal');
-  const [pregnancyWeek, setPregnancyWeek] = useState(24);
+  const [pregnancyWeek] = useState(24);
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-            <Heart className="w-8 h-8 text-pink-600" />
-            <span>Special Care & Vulnerable Support</span>
+          <span className="text-xs font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">
+            Specialized Care
+          </span>
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-0.5">
+            Special Care & Support
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
-            Dedicated maternal tracking, ANC schedule, & disability accessibility guidance.
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Maternal checkup timeline, antenatal care tracking, and disability accessibility.
           </p>
         </div>
 
         {/* Toggle Mode */}
-        <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-2xl shrink-0">
+        <div className="flex items-center border border-zinc-200 dark:border-zinc-800 rounded-lg p-0.5 bg-zinc-50 dark:bg-zinc-900 shrink-0">
           <button
             onClick={() => setCareType('maternal')}
-            className={`px-4 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition-all ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               careType === 'maternal'
-                ? 'bg-pink-600 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs'
+                : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400'
             }`}
           >
-            <Baby className="w-4 h-4" />
-            <span>Maternal / Pregnancy Care</span>
+            Maternal Care
           </button>
 
           <button
             onClick={() => setCareType('disability')}
-            className={`px-4 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition-all ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
               careType === 'disability'
-                ? 'bg-[#0057B8] text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs'
+                : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400'
             }`}
           >
-            <Accessibility className="w-4 h-4" />
-            <span>Disability Support</span>
+            Disability Support
           </button>
         </div>
       </div>
@@ -53,70 +53,70 @@ export const SpecialCarePage: React.FC = () => {
       {careType === 'maternal' && (
         <div className="space-y-6">
           
-          {/* Pregnancy Tracker Banner */}
-          <div className="bg-gradient-to-r from-pink-600 to-rose-700 text-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-4">
+          {/* Pregnancy Tracker Card */}
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-black uppercase text-pink-200 tracking-wider">Maternal Journey</span>
-                <h2 className="text-2xl sm:text-3xl font-black mt-0.5">Week {pregnancyWeek} — 2nd Trimester</h2>
-                <p className="text-xs font-semibold text-pink-100 mt-1">
-                  Expected Delivery Date (EDD): <strong>24th November 2026</strong>
+                <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-wide">Maternal Journey</span>
+                <h2 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 mt-0.5">Week {pregnancyWeek} — 2nd Trimester</h2>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  Expected Delivery Date (EDD): 24th November 2026
                 </p>
               </div>
 
-              <div className="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center font-black text-2xl">
+              <div className="w-10 h-10 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-lg">
                 🤰
               </div>
             </div>
 
-            <div className="w-full bg-white/20 h-3 rounded-full overflow-hidden">
-              <div className="bg-white h-full rounded-full transition-all" style={{ width: `${(pregnancyWeek / 40) * 100}%` }} />
+            <div className="w-full bg-zinc-100 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+              <div className="bg-zinc-900 dark:bg-zinc-100 h-full rounded-full transition-all" style={{ width: `${(pregnancyWeek / 40) * 100}%` }} />
             </div>
           </div>
 
           {/* Antenatal Care (ANC) Milestones */}
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-card space-y-4">
-            <h3 className="text-base font-extrabold text-slate-900">Recommended ANC Checkup Timeline</h3>
+          <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-3">
+            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">ANC Checkup Timeline</h3>
 
-            <div className="space-y-3 text-xs">
-              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+            <div className="divide-y divide-zinc-100 dark:divide-zinc-800 text-xs">
+              <div className="py-3 flex items-center justify-between">
                 <div>
-                  <strong className="text-slate-900 font-extrabold text-sm">1st ANC Visit (Within 12 Weeks)</strong>
-                  <p className="text-slate-600 font-medium">Completed: Hemoglobin, Blood Grouping & TT Vaccination</p>
+                  <strong className="text-zinc-900 dark:text-zinc-100 block">1st ANC Visit (Within 12 Weeks)</strong>
+                  <p className="text-zinc-500 dark:text-zinc-400 mt-0.5">Hemoglobin, Blood Grouping & TT Vaccination</p>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-emerald-700 text-white font-black">DONE</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40">DONE</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+              <div className="py-3 flex items-center justify-between">
                 <div>
-                  <strong className="text-slate-900 font-extrabold text-sm">2nd ANC Visit (14 - 26 Weeks)</strong>
-                  <p className="text-slate-600 font-medium">Scheduled: Ultrasound Anomaly Scan & Iron Folic Acid Tabs</p>
+                  <strong className="text-zinc-900 dark:text-zinc-100 block">2nd ANC Visit (14 - 26 Weeks)</strong>
+                  <p className="text-zinc-500 dark:text-zinc-400 mt-0.5">Ultrasound Anomaly Scan & Iron Folic Acid Tabs</p>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#0057B8] text-white font-black">UPCOMING</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-medium text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40">UPCOMING</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div className="py-3 flex items-center justify-between">
                 <div>
-                  <strong className="text-slate-900 font-extrabold text-sm">3rd & 4th ANC Visits (28 - 36 Weeks)</strong>
-                  <p className="text-slate-600 font-medium">Blood Pressure monitoring & Hospital Delivery planning</p>
+                  <strong className="text-zinc-900 dark:text-zinc-100 block">3rd & 4th ANC Visits (28 - 36 Weeks)</strong>
+                  <p className="text-zinc-500 dark:text-zinc-400 mt-0.5">BP monitoring & Hospital Delivery planning</p>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-slate-300 text-slate-700 font-bold">PLANNED</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-medium text-zinc-500 bg-zinc-100 dark:bg-zinc-800">PLANNED</span>
               </div>
             </div>
           </div>
 
-          {/* 102 / 108 Pregnant Women Ambulance Hotline */}
-          <div className="bg-red-50 border border-red-200 p-5 rounded-3xl flex items-center justify-between">
+          {/* 102 Pregnant Women Ambulance Callout */}
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-4 rounded-xl flex items-center justify-between gap-4">
             <div>
-              <h4 className="font-extrabold text-[#D92D20] text-base">Janani Shishu Suraksha Karyakram (JSSK)</h4>
-              <p className="text-xs text-slate-600 font-medium">Free ambulance transport for pregnant women & newborns</p>
+              <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Janani Shishu Suraksha (JSSK)</h4>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Free ambulance transport for pregnant mothers & newborns</p>
             </div>
             <button 
               onClick={() => EmergencyService.triggerEmergencyCall('102')}
-              className="px-4 py-2.5 rounded-xl bg-[#D92D20] text-white font-extrabold text-xs flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 font-medium text-xs flex items-center gap-1.5 transition-colors shrink-0"
             >
-              <PhoneCall className="w-4 h-4" />
-              <span>Call 102 Ambulance</span>
+              <PhoneCall className="w-3.5 h-3.5" />
+              <span>Call 102</span>
             </button>
           </div>
 
@@ -125,26 +125,26 @@ export const SpecialCarePage: React.FC = () => {
 
       {/* DISABILITY SUPPORT VIEW */}
       {careType === 'disability' && (
-        <div className="space-y-6">
-          <div className="bg-blue-50 border border-blue-200 p-6 rounded-3xl space-y-3">
-            <h3 className="font-extrabold text-[#0057B8] text-xl flex items-center gap-2">
-              <Accessibility className="w-6 h-6" />
-              <span>Accessibility Assistance & UDID Card Support</span>
+        <div className="space-y-4">
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 p-5 rounded-xl space-y-2">
+            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm flex items-center gap-2">
+              <Accessibility className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />
+              <span>Accessibility Assistance & UDID Support</span>
             </h3>
-            <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
-              SWASTYA includes screen-reader optimizations, voice-guided navigation, ultra-high contrast modes, and direct links to the Unique Disability ID (UDID) portal.
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              SWASTYA includes screen-reader optimizations, voice-guided navigation, high contrast modes, and links to the Unique Disability ID (UDID) portal.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-card space-y-2">
-              <h4 className="font-extrabold text-slate-900 text-base">Wheelchair Accessible Hospitals</h4>
-              <p className="text-xs text-slate-500 font-medium">Verified ramps, elevator access, & specialized OPD counters.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-1">
+              <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Wheelchair Accessible Hospitals</h4>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">Verified ramps, elevator access, and specialized OPD counters.</p>
             </div>
 
-            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-card space-y-2">
-              <h4 className="font-extrabold text-slate-900 text-base">Voice Navigation Assistance</h4>
-              <p className="text-xs text-slate-500 font-medium">Full spoken prompt support for visual or cognitive impairments.</p>
+            <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-1">
+              <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">Voice Navigation Assistance</h4>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">Full spoken prompt support for visual or cognitive accessibility.</p>
             </div>
           </div>
         </div>
@@ -153,3 +153,5 @@ export const SpecialCarePage: React.FC = () => {
     </div>
   );
 };
+
+export default SpecialCarePage;

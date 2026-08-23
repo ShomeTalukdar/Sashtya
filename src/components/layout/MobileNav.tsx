@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, FileText, Pill, Bot, AlertTriangle } from 'lucide-react';
+import { Home, ShieldCheck, FileText, Pill, AlertTriangle } from 'lucide-react';
 
 interface MobileNavProps {
   activeTab: string;
@@ -11,65 +11,69 @@ interface MobileNavProps {
 export const MobileNav: React.FC<MobileNavProps> = ({
   activeTab,
   onNavigate,
-  onOpenEmergency,
-  onOpenAssistant
+  onOpenEmergency
 }) => {
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-slate-200 shadow-lg px-2 py-2">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-t border-zinc-200 dark:border-zinc-800 px-3 py-1.5">
       <div className="flex items-center justify-around">
         
         {/* Home */}
         <button
           onClick={() => onNavigate('home')}
-          className={`flex flex-col items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold transition-colors ${
-            activeTab === 'home' ? 'text-[#0057B8]' : 'text-slate-500 hover:text-slate-800'
+          className={`flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition-colors ${
+            activeTab === 'home' ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'
           }`}
         >
-          <Home className="w-5 h-5" />
+          <Home className="w-4 h-4" />
           <span>Home</span>
+        </button>
+
+        {/* Preventive */}
+        <button
+          onClick={() => onNavigate('preventive_care')}
+          className={`flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition-colors ${
+            activeTab === 'preventive_care' ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'
+          }`}
+        >
+          <ShieldCheck className="w-4 h-4" />
+          <span>Preventive</span>
         </button>
 
         {/* Records */}
         <button
           onClick={() => onNavigate('records')}
-          className={`flex flex-col items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold transition-colors ${
-            activeTab === 'records' ? 'text-[#0057B8]' : 'text-slate-500 hover:text-slate-800'
+          className={`flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition-colors ${
+            activeTab === 'records' ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'
           }`}
         >
-          <FileText className="w-5 h-5" />
+          <FileText className="w-4 h-4" />
           <span>Records</span>
-        </button>
-
-        {/* 🚨 Emergency Floating Center Action */}
-        <button
-          onClick={onOpenEmergency}
-          aria-label="Emergency"
-          className="flex flex-col items-center justify-center -mt-5 bg-[#D92D20] text-white p-3 rounded-full shadow-emergency border-2 border-white active:scale-95 transition-transform"
-        >
-          <AlertTriangle className="w-6 h-6 fill-white text-[#D92D20]" />
         </button>
 
         {/* Medicines */}
         <button
           onClick={() => onNavigate('medicines')}
-          className={`flex flex-col items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold transition-colors ${
-            activeTab === 'medicines' ? 'text-[#0057B8]' : 'text-slate-500 hover:text-slate-800'
+          className={`flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition-colors ${
+            activeTab === 'medicines' ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'
           }`}
         >
-          <Pill className="w-5 h-5" />
+          <Pill className="w-4 h-4" />
           <span>Medicines</span>
         </button>
 
-        {/* Assistant */}
+        {/* Emergency */}
         <button
-          onClick={onOpenAssistant}
-          className="flex flex-col items-center gap-1 px-2 py-1 rounded-xl text-[11px] font-bold text-[#0057B8] hover:text-blue-800"
+          onClick={onOpenEmergency}
+          aria-label="Emergency"
+          className="flex flex-col items-center gap-1 py-1 text-[10px] font-medium text-red-600 dark:text-red-400 transition-colors"
         >
-          <Bot className="w-5 h-5" />
-          <span>Assistant</span>
+          <AlertTriangle className="w-4 h-4" />
+          <span>Emergency</span>
         </button>
 
       </div>
     </div>
   );
 };
+
+export default MobileNav;
